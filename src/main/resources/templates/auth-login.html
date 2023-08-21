@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login</title>
+    <th:block th:insert="~{/fragments/header}"></th:block>
+</head>
+
+<body>
+
+<div class="col-5 float-end">
+
+    <form th:method="post"
+          th:action="@{/users/login}"
+          class="main-form d-flex flex-column">
+
+        @@ -31,14 +31,22 @@
+        <div class="label-holder text-white d-flex justify-content-start">
+            <label for="email" class="form-label text-white">Email</label>
+        </div>
+        <input type="text"
+               class="form-control"
+               id="email"
+               placeholder="Ex: example@gmail.com"
+               name="email"/>
+</div>
+
+<div class="form-group mt-1">
+    <div class="label-holder text-white d-flex justify-content-start">
+        <label for="password" class="form-label text-white">Password</label>
+    </div>
+    <input type="password"
+           class="form-control"
+           id="password"
+           placeholder="Enter password"
+           name="password"/>
+</div>
+
+<div class="login-12 text-center mt-4 mb-1">
+    <button type="submit" class="btn">Login</button>
+</div>
+</body>
+</html>
