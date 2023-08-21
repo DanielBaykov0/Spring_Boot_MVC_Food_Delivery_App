@@ -38,6 +38,13 @@ nav .dropdown-item:hover{
 nav .nav-item{
     font-weight: 450;
     font-size:17px;
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+}
+
+nav .collapse{
+    margin-right: 0;
 }
 
 nav .navbar-nav {

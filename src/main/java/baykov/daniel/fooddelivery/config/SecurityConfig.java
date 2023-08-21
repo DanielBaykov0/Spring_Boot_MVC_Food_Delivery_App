@@ -28,7 +28,11 @@ public class SecurityConfig {
                                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
                                 .defaultSuccessUrl("/")
-                                .failureForwardUrl("/users/login-error"));
+                                .failureForwardUrl("/users/login-error"))
+                .logout(logout ->
+                        logout.logoutUrl("/users/logout")
+                                .logoutSuccessUrl("/")
+                                .invalidateHttpSession(true));
 
         return http.build();
     }
