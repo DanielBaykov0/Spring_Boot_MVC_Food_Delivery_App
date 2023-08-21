@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Profile</title>
-    <th:block th:include="~{/fragments/head}"></th:block>
+    <th:block th:insert="~{/fragments/head}"></th:block>
 </head>
 
 <body>
 
 <div>
-    <th:block th:include="~{/fragments/navigation}"></th:block>
+    <th:block th:insert="~{/fragments/navigation}"></th:block>
 </div>
 
 <div class="row profile-form d-flex justify-content-center align-items-center">
@@ -64,7 +64,7 @@
 </div>
 
 
-<th:block th:include="~{fragments/footer}"></th:block>
+<th:block th:insert="~{fragments/footer}"></th:block>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

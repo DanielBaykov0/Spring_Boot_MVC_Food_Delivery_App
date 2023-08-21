@@ -20,7 +20,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                .requestMatchers("/", "/users/login", "/users/register").permitAll()
+                                .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
                                 .requestMatchers("/orders/all").hasAnyRole(RoleEnum.WORKER.name(), RoleEnum.ADMIN.name())
                                 .anyRequest().authenticated())
                 .formLogin(login ->
