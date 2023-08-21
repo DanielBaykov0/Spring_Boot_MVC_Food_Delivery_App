@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order food</title>
+    <th:block th:include="~{/fragments/header}"></th:block>
+</head>
+
+<body>
+
+<div>
+    <th:block th:include="~{/fragments/navigation}"></th:block>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <img src="@{/resources/images/pizza.jpeg}" class="card-img" alt="pizza image">
+                <h5 class="card-title mb-1 mt-2">Pizza</h5>
+                <a href="#" class="navigate-to mb-1">Find pizza</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+
+                <img src="@{/resources/images/tortilla.jpg}" class="card-img" alt="pizza image">
+
+                <h5 class="card-title mb-1 mt-4">Tortilla</h5>
+                <a href="#" class="navigate-to mb-1">Find tortilla</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="@{/resources/images/burger.jpg}" class="card-img" alt="pizza image">
+                <h5 class="card-title mb-1 mt-2">Burgers</h5>
+                <a href="#" class="navigate-to mb-1">Find burgers</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="card">
+                <img src="@{/resources/images/fries.jpg}" class="card-img" alt="pizza image">
+                <h5 class="card-title mb-1 mt-2">French fries</h5>
+                <a href="#" class="navigate-to mb-1">Find french fries</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="@{/resources/images/dessert.jpg}" class="card-img mt-2 pb-0" alt="pizza image">
+                <h5 class="card-title mb-1 mt-4">Deserts</h5>
+                <a href="#" class="navigate-to mb-1">Find deserts</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="@{/resources/images/kola.jpg}" class="card-img" alt="pizza image">
+                <h5 class="card-title mb-1 mt-4">Drinks</h5>
+                <a href="#" class="navigate-to mb-1">Find drinks</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<th:block th:include="~{fragments/footer}"></th:block>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>
