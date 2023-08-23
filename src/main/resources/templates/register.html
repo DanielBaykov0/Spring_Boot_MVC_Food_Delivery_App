@@ -35,7 +35,8 @@
                        class="form-control"
                        id="firstName"
                        placeholder="First name">
-                <div class="invalid-feedback errors-register alert-danger" th:each="err :${#fields.errors('firstName')}"
+                <div class="invalid-feedback errors-register alert-danger"
+                     th:each="err :${#fields.errors('firstName')}"
                      th:text="${err}"/>
             </div>
 
@@ -61,7 +62,7 @@
                        th:errorclass="is-invalid"
                        class="form-control"
                        id="username"
-                       placeholder="Ex: ivaylo5@">
+                       placeholder="Ex: example7@">
                 <div class="invalid-feedback errors-register alert-danger" th:each="err :${#fields.errors('username')}"
                      th:text="${err}"/>
             </div>
@@ -141,7 +142,7 @@
                         th:errorclass="is-invalid"
                         class="form-select text-secondary">
                     <option value="">Select gender</option>
-                    <option th:each="g:${T(bg.softuni.fooddelivery.domain.enums.GenderEnum).values()}"
+                    <option th:each="g:${T(baykov.daniel.fooddelivery.domain.constant.GenderEnum).values()}"
                             th:text="${g.name()}"
                             th:value="${g}">Male
                     </option>
