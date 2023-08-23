@@ -1,0 +1,47 @@
+package baykov.daniel.fooddelivery.web;
+
+import baykov.daniel.fooddelivery.domain.dto.RegistrationDto;
+import baykov.daniel.fooddelivery.service.UserService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@Controller
+@AllArgsConstructor
+@RequestMapping("/users")
+public class RegisterController {
+
+    private final UserService userService;
+
+    @ModelAttribute("registerDto")
+    public RegistrationDto initBindingDto() {
+        return new RegistrationDto();
+    }
+
+    @GetMapping("/register")
+    public String getRegister() {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String postRegister(
+            @Valid RegistrationDto registrationDto,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("registerDto", registrationDto);
+
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.registerDto", bindingResult);
+            return "redirect:/users/register";
+        }
+
+        this.userService.register(userService.mapToModel(registrationDto));
+        return "redirect:/users/login";
+    }
+}
