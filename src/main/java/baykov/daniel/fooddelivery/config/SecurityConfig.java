@@ -6,7 +6,6 @@ import baykov.daniel.fooddelivery.service.FoodDeliveryUserDetailsService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,16 +19,16 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         http
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                .requestMatchers("/").permitAll()
-                                .requestMatchers("/users/login").permitAll()
-                                .requestMatchers("/users/register").permitAll()
-                                .requestMatchers("/users/login-error").permitAll()
-                                .requestMatchers("/orders/all").hasAnyRole(RoleEnum.WORKER.name(), RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/")).permitAll()
+                                .requestMatchers(mvc.pattern("/users/login")).permitAll()
+                                .requestMatchers(mvc.pattern("/users/register")).permitAll()
+                                .requestMatchers(mvc.pattern("/users/login-error")).permitAll()
+                                .requestMatchers(mvc.pattern("/orders/all")).hasAnyRole(RoleEnum.WORKER.name(), RoleEnum.ADMIN.name())
                                 .anyRequest().authenticated())
                 .formLogin(login ->
                         login.loginPage("/users/login")
@@ -45,7 +44,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Scope("prototype")
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
         return new MvcRequestMatcher.Builder(introspector);
