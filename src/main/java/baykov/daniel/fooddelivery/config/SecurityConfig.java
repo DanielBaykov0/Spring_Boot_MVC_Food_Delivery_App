@@ -29,7 +29,10 @@ public class SecurityConfig {
                                 .requestMatchers(mvc.pattern("/users/register")).permitAll()
                                 .requestMatchers(mvc.pattern("/users/login-error")).permitAll()
                                 .requestMatchers(mvc.pattern("/contact")).permitAll()
-                                .requestMatchers(mvc.pattern("/menu")).permitAll()
+//                                .requestMatchers(mvc.pattern("/menu/**")).permitAll()
+                                .requestMatchers(mvc.pattern("/orders/**")).permitAll()
+                                .requestMatchers(mvc.pattern("/cart")).authenticated()
+                                .requestMatchers(mvc.pattern("/cart/add/**")).authenticated()
                                 .requestMatchers(mvc.pattern("/orders/all")).hasAnyRole(RoleEnum.WORKER.name(), RoleEnum.ADMIN.name())
                                 .anyRequest().authenticated())
                 .formLogin(login ->

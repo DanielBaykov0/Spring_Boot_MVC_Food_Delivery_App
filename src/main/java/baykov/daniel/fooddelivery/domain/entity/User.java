@@ -45,4 +45,7 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "owner")
     private List<Order> orders = new ArrayList<>();
+
+    @OneToOne
+    private Cart cart;
 }

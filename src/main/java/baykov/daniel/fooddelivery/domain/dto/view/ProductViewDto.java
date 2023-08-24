@@ -1,6 +1,5 @@
 package baykov.daniel.fooddelivery.domain.dto.view;
 
-import baykov.daniel.fooddelivery.domain.constant.ProductCategoryEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,5 @@ public class ProductViewDto {
 
     private String name;
     private BigDecimal price;
-    private ProductCategoryEnum productCategoryEnum;
     private String description;
 }

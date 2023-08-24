@@ -22,15 +22,9 @@ public class ProductController {
     @GetMapping("/menu/{category}")
     public String getCategoryPage(@PathVariable
                                   ProductCategoryEnum category,
-                                  Model model)
-                                  /*@PageableDefault(
-                                          page = 0,
-                                          size = 5)
-                                      Pageable pageable)*/ {
-
+                                  Model model) {
         model.addAttribute("category", category);
         model.addAttribute("products", this.productService.getAllProducts(category));
-
         return "categories-page";
     }
 }

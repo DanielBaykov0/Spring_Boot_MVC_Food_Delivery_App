@@ -20,6 +20,7 @@ public class UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final CartService cartService;
 
     public void register(UserModelDto userModelDto) {
         User user = this.mapToUser(userModelDto);
@@ -28,8 +29,13 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singletonList(userRole));
+        user.setCart(this.cartService.getNewCart());
 
         this.userRepository.saveAndFlush(user);
+    }
+
+    public User getUserByUsername(String username) {
+        return this.userRepository.findUserByUsername(username).orElse(null);
     }
 
     public UserModelDto mapToModel(RegistrationBindingDto registrationBindingDto) {
