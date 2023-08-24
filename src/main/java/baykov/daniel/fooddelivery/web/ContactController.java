@@ -1,6 +1,6 @@
 package baykov.daniel.fooddelivery.web;
 
-import baykov.daniel.fooddelivery.domain.dto.ContactBindingDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.ContactBindingDto;
 import baykov.daniel.fooddelivery.service.ContactService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package baykov.daniel.fooddelivery.domain.dto;
+package baykov.daniel.fooddelivery.domain.dto.model;
 
 import baykov.daniel.fooddelivery.domain.constant.GenderEnum;
 import jakarta.persistence.EnumType;

@@ -1,7 +1,7 @@
 package baykov.daniel.fooddelivery.service;
 
-import baykov.daniel.fooddelivery.domain.dto.ContactBindingDto;
-import baykov.daniel.fooddelivery.domain.dto.ContactModelDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.ContactBindingDto;
+import baykov.daniel.fooddelivery.domain.dto.model.ContactModelDto;
 import baykov.daniel.fooddelivery.domain.entity.Contact;
 import baykov.daniel.fooddelivery.repository.ContactRepository;
 import lombok.AllArgsConstructor;

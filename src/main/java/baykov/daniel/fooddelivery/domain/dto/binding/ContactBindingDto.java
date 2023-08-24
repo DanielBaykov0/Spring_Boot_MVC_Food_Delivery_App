@@ -1,4 +1,4 @@
-package baykov.daniel.fooddelivery.domain.dto;
+package baykov.daniel.fooddelivery.domain.dto.binding;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

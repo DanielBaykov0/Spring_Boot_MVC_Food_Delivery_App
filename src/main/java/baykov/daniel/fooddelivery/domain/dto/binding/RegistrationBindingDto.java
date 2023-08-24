@@ -1,4 +1,4 @@
-package baykov.daniel.fooddelivery.domain.dto;
+package baykov.daniel.fooddelivery.domain.dto.binding;
 
 import baykov.daniel.fooddelivery.domain.constant.GenderEnum;
 import baykov.daniel.fooddelivery.validation.FieldMatch;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @FieldMatch(firstField = "password",
         secondField = "confirmPassword",
         message = "Passwords should match.")
-public class RegistrationDto {
+public class RegistrationBindingDto {
 
     @NotEmpty(message = "Please enter first name.")
     @Size(min = 2, max = 15, message = "First name must be between 2 and 15 characters.")

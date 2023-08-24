@@ -1,6 +1,6 @@
 package baykov.daniel.fooddelivery.web;
 
-import baykov.daniel.fooddelivery.domain.dto.RegistrationDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.RegistrationBindingDto;
 import baykov.daniel.fooddelivery.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,8 +20,8 @@ public class RegisterController {
     private final UserService userService;
 
     @ModelAttribute("registerDto")
-    public RegistrationDto initBindingDto() {
-        return new RegistrationDto();
+    public RegistrationBindingDto initBindingDto() {
+        return new RegistrationBindingDto();
     }
 
     @GetMapping("/register")
@@ -31,17 +31,17 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String postRegister(
-            @Valid RegistrationDto registrationDto,
+            @Valid RegistrationBindingDto registrationBindingDto,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("registerDto", registrationDto);
+            redirectAttributes.addFlashAttribute("registerDto", registrationBindingDto);
 
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.registerDto", bindingResult);
             return "redirect:/users/register";
         }
 
-        this.userService.register(userService.mapToModel(registrationDto));
+        this.userService.register(userService.mapToModel(registrationBindingDto));
         return "redirect:/users/login";
     }
 }

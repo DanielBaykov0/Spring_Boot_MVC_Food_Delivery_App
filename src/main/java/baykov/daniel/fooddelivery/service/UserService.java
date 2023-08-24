@@ -1,8 +1,8 @@
 package baykov.daniel.fooddelivery.service;
 
 import baykov.daniel.fooddelivery.domain.constant.RoleEnum;
-import baykov.daniel.fooddelivery.domain.dto.RegistrationDto;
-import baykov.daniel.fooddelivery.domain.dto.UserModelDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.RegistrationBindingDto;
+import baykov.daniel.fooddelivery.domain.dto.model.UserModelDto;
 import baykov.daniel.fooddelivery.domain.entity.Role;
 import baykov.daniel.fooddelivery.domain.entity.User;
 import baykov.daniel.fooddelivery.repository.UserRepository;
@@ -32,8 +32,8 @@ public class UserService {
         this.userRepository.saveAndFlush(user);
     }
 
-    public UserModelDto mapToModel(RegistrationDto registrationDto) {
-        return this.modelMapper.map(registrationDto, UserModelDto.class);
+    public UserModelDto mapToModel(RegistrationBindingDto registrationBindingDto) {
+        return this.modelMapper.map(registrationBindingDto, UserModelDto.class);
     }
 
     public User mapToUser(UserModelDto userModelDto) {
