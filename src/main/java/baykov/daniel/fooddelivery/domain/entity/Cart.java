@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "carts")
 public class Cart extends BaseEntity {
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Product> products = new ArrayList<>();
 
     private Long productsCount = 0L;
