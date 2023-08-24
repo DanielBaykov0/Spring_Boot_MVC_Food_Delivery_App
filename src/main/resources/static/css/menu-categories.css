@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(234, 153, 153);
+    background-color: rgb(238, 240, 132);
 }
 
 .container{
@@ -18,6 +18,7 @@ body {
     margin-right: 8px;
     text-align: center;
 }
+
 .card-img{
     margin-top: 5px;
 }
@@ -28,9 +29,8 @@ body {
     transition: all 2000ms ease
 }
 
-
 .card{
-    background-color:#d54b43;
+    background-color:#eef084;
     width:70%;
     margin-left: 50px;
     margin-right: 50px;
@@ -40,7 +40,7 @@ body {
 }
 
 .card-dessert{
-    background-color:#d54b43;
+    background-color:#eef084;
 }
 
 .row{
@@ -48,9 +48,8 @@ body {
     margin-right: 75px;
 }
 
-
 .card-title{
-    color: white;
+    color: black;
     font-weight: 500;
     margin-left: 8px;
 }
