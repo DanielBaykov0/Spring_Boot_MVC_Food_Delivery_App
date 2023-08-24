@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,5 +26,10 @@ public class OrderService {
                 .stream()
                 .map(product -> this.modelMapper.map(product, ProductViewDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public BigDecimal getProductsPrice(Principal principal) {
+        User user = this.userService.getUserByUsername(principal.getName());
+        return user.getCart().getProductsSum();
     }
 }

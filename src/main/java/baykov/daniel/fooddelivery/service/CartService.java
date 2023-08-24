@@ -29,6 +29,15 @@ public class CartService {
         user.getCart().increaseProductsSum(product.getPrice());
     }
 
+    @Transactional
+    public void removeFromCart(Long id, Principal principal) {
+        User user = this.userRepository.findByUsername(principal.getName());
+        Product product = this.productRepository.findProductById(id);
+
+        user.getCart().getProducts().remove(product);
+        user.getCart().decreaseProductsSum(product.getPrice());
+    }
+
     public Cart getNewCart() {
         Cart cart = new Cart();
         this.cartRepository.saveAndFlush(cart);
