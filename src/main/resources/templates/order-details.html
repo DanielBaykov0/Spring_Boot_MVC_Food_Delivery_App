@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Orders history</title>
+    <th:block th:insert="~{/fragments/header}"></th:block>
+</head>
+
+<body>
+
+<div>
+    <th:block th:insert="~{/fragments/navigation}"></th:block>
+</div>
+
+
+<p th:text="${order.address}"></p>
+
+<th:block th:insert="~{fragments/footer}"></th:block>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous">
+</script>
+</body>
+
+</html>
