@@ -1,18 +1,32 @@
 package baykov.daniel.fooddelivery.web;
 
 import baykov.daniel.fooddelivery.domain.constant.ProductCategoryEnum;
+import baykov.daniel.fooddelivery.domain.dto.binding.EditProductBindingDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.ProductBindingDto;
 import baykov.daniel.fooddelivery.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @AllArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
+
+    @ModelAttribute("productDto")
+    public ProductBindingDto initBindingDto() {
+        return new ProductBindingDto();
+    }
+
+    @ModelAttribute("editedProductDto")
+    public EditProductBindingDto initEditProductBindingDto() {
+        return new EditProductBindingDto();
+    }
 
     @GetMapping("/menu")
     public String getMenu() {
@@ -26,5 +40,47 @@ public class ProductController {
         model.addAttribute("category", category);
         model.addAttribute("products", this.productService.getAllProducts(category));
         return "categories-page";
+    }
+
+    @GetMapping("/products/edit/{id}")
+    public String editProduct(@PathVariable("id") Long productId, Model model) {
+        model.addAttribute("product", this.productService.getProductById(productId));
+        return "edit-product";
+    }
+
+
+    @PatchMapping("/products/edited/{id}")
+    public String editedProduct(
+            @PathVariable("id") Long productId,
+            @Valid EditProductBindingDto editProductBindingDto,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("editedProductDto", editProductBindingDto);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editedProductDto", bindingResult);
+            return "redirect:/products/edited/{id}";
+        }
+
+        this.productService.editProduct(productId, editProductBindingDto);
+        return "redirect:/menu";
+    }
+
+    @GetMapping("/products/add")
+    public String addProduct() {
+        return "add-product";
+    }
+
+    @PostMapping("/products/add")
+    public String postAddProduct(@Valid ProductBindingDto productBindingDto,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("productDto", productBindingDto);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productDto", bindingResult);
+            return "redirect:/products/add";
+        }
+
+        this.productService.addProduct(productBindingDto);
+        return "redirect:/";
     }
 }

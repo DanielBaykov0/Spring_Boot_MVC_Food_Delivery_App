@@ -1,6 +1,8 @@
 package baykov.daniel.fooddelivery.service;
 
 import baykov.daniel.fooddelivery.domain.constant.ProductCategoryEnum;
+import baykov.daniel.fooddelivery.domain.dto.binding.EditProductBindingDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.ProductBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.view.ProductViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Product;
 import baykov.daniel.fooddelivery.repository.ProductRepository;
@@ -24,6 +26,31 @@ public class ProductService {
                 .stream()
                 .map(this::mapToViewDto)
                 .collect(Collectors.toList());
+    }
+
+    public ProductViewDto getProductById(Long productId) {
+        Product product = this.productRepository.findProductById(productId);
+        return this.modelMapper.map(product, ProductViewDto.class);
+    }
+
+    public void editProduct(Long productId, EditProductBindingDto editProductBindingDto) {
+        Product product = this.productRepository.findProductById(productId);
+        product
+                .setDescription(editProductBindingDto.getDescription())
+                .setPrice(editProductBindingDto.getPrice());
+
+        this.productRepository.save(product);
+    }
+
+    public void addProduct(ProductBindingDto productBindingDto) {
+        Product product = new Product();
+        product
+                .setName(productBindingDto.getName())
+                .setCategory(productBindingDto.getCategory())
+                .setDescription(productBindingDto.getDescription())
+                .setPrice(productBindingDto.getPrice());
+
+        this.productRepository.saveAndFlush(product);
     }
 
     public String getProductCategory(Long id) {

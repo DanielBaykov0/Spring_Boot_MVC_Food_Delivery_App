@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <nav class="navbar navbar-expand-lg fixed-top" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <a class="navbar-brand" th:href="@{/}"><img alt="pizza picture" src="@{/resources/images/pizzaSlice.png}"
@@ -13,10 +13,10 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/menu}">Menu</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="!hasAuthority('ROLE_ADMIN')">
                 <a class="nav-link" th:href="@{/contact}">Contact us</a>
             </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
+            <li class="nav-item" sec:authorize="isAuthenticated() && !hasAuthority('ROLE_ADMIN')">
                 <a class="nav-link" th:href="@{/cart}">Order cart</a>
             </li>
             </li>
@@ -25,6 +25,9 @@
             </li>
             <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <a class="nav-link" th:href="@{/users/all}">All users</a>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <a class="nav-link" th:href="@{/products/add}">Add product</a>
+            </li>
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                    aria-expanded="false">
@@ -32,7 +35,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item text-white" th:href="@{/users/profile}">Personal information</a></li>
-                    <li><a class="dropdown-item text-white" th:href="@{/orders/history}">Orders history</a></li>
+                    <li><a class="dropdown-item text-white" th:href="@{/orders/history}"
+                           sec:authorize="!hasAuthority('ROLE_ADMIN')">Orders history</a></li>
                     <li>
                         <form class="dropdown-item text-white" th:method="post" th:action="@{/users/logout}">
                             <input class="dropdown-item btn-link nav-link" type="submit" value="Logout">
