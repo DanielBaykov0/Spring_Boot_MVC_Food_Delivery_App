@@ -33,7 +33,7 @@ public class SecurityConfig {
                                 .requestMatchers(mvc.pattern("/orders/**")).permitAll()
                                 .requestMatchers(mvc.pattern("/cart")).authenticated()
                                 .requestMatchers(mvc.pattern("/cart/add/**")).authenticated()
-                                .requestMatchers(mvc.pattern("/orders/all")).hasAnyRole(RoleEnum.WORKER.name(), RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/orders/**")).hasAnyRole(RoleEnum.WORKER.name(), RoleEnum.ADMIN.name())
                                 .anyRequest().authenticated())
                 .formLogin(login ->
                         login.loginPage("/users/login")

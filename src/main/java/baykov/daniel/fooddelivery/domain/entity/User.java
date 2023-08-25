@@ -3,6 +3,7 @@ package baykov.daniel.fooddelivery.domain.entity;
 import baykov.daniel.fooddelivery.domain.constant.GenderEnum;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Accessors(chain = true)
 @Table(name = "users")
 public class User extends BaseEntity {
 
