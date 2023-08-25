@@ -21,6 +21,7 @@ public class OrderDetailsViewDto {
     private LocalDateTime deliveredOn;
     private String address;
     private String contactPhoneNumber;
+    private String client;
     private Cart cart;
     private Boolean isDelivered;
 }

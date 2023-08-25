@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Orders history</title>
+    <title>All users</title>
     <th:block th:insert="~{/fragments/header}"></th:block>
 </head>
 
@@ -12,7 +12,8 @@
     <th:block th:insert="~{/fragments/navigation}"></th:block>
 </div>
 
-<h2 class="text-center text-white">All orders</h2>
+
+<h2 class="text-center text-white">All users</h2>
 
 <div class="container mt-2">
     <div class="row">
@@ -20,23 +21,25 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th scope="col" class="text-center">Id</th>
-                    <th scope="col" class="text-center">Price</th>
-                    <th scope="col" class="text-center">Created on</th>
-                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Username</th>
+                    <th scope="col" class="text-center">Email</th>
                     <th scope="col" class="text-center">More details</th>
+                    <th scope="col" class="text-center">Roles</th>
+                    <th scope="col" class="text-center">Manage</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="order: ${allOrders}" th:object="${order}">
-                    <th scope="row" th:text="*{id}" class="text-center">1</th>
-                    <td th:text="*{price}" class="text-center">0.00</td>
-                    <td th:text="*{#temporals.format(createdOn,'dd-MM-yyyy')}" class="text-center">01-01-2010</td>
-                    <td th:if="*{delivered}" class="text-center">Delivered</td>
-                    <td th:unless="*{delivered}" class="text-center">In progress</td>
+                <tr th:each="user: ${users}" th:object="${user}">
+                    <th scope="row" th:text="*{username}" class="text-center">1</th>
+                    <td th:text="*{email}" class="text-center">0.00</td>
                     <td style="text-align: center;">
                         <a type="button" class="button-detail"
-                           th:href="@{/orders/details/{id}(id=${order.id})}">Details</a>
+                           th:href="@{/users/profile/{id}(id=${user.id})}">Details</a>
+                    </td>
+                    <td th:text="*{#strings.listJoin(getRolesNames(),',')}" class="text-center"></td>
+                    <td style="text-align: center;">
+                        <a type="button" class="button-detail"
+                           th:href="@{/users/change/{id}(id=${user.id})}">Change roles</a>
                     </td>
                 </tr>
                 </tbody>
@@ -50,8 +53,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous">
-</script>
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

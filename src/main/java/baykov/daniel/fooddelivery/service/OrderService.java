@@ -81,7 +81,9 @@ public class OrderService {
     }
 
     private OrderDetailsViewDto mapToOrderView(Order order) {
-        return this.modelMapper.map(order, OrderDetailsViewDto.class);
+        OrderDetailsViewDto orderDetailsViewDto = this.modelMapper.map(order, OrderDetailsViewDto.class);
+        orderDetailsViewDto.setClient(order.getOwner().getUsername());
+        return orderDetailsViewDto;
     }
 
     public OrderDetailsViewDto getOrderById(Long id) {
