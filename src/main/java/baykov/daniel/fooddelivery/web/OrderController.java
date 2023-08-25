@@ -52,12 +52,18 @@ public class OrderController {
     @GetMapping("/history")
     public String getOrdersHistory(Model model, Principal principal) {
         model.addAttribute("orders", this.orderService.getOrdersByUser(principal));
-        return "orders-history";
+        return "orders-history-user";
     }
 
     @GetMapping("/details/{id}")
     public String orderDetails(@PathVariable Long id, Model model) {
         model.addAttribute("order", this.orderService.getOrderById(id));
         return "order-details";
+    }
+
+    @GetMapping("/all/history")
+    public String getAllOrders(Model model) {
+        model.addAttribute("allOrders", this.orderService.getAllOrders());
+        return "orders-history";
     }
 }

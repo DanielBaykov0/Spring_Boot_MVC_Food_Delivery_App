@@ -72,6 +72,14 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    public List<OrderDetailsViewDto> getAllOrders() {
+        return this.orderRepository
+                .findAll()
+                .stream()
+                .map(this::mapToOrderView)
+                .collect(Collectors.toList());
+    }
+
     private OrderDetailsViewDto mapToOrderView(Order order) {
         return this.modelMapper.map(order, OrderDetailsViewDto.class);
     }
