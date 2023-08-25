@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -43,5 +44,18 @@ public class UserController {
         }
 
         return "redirect:/users/all";
+    }
+
+    @PatchMapping("/roles/add/{id}/{name}")
+    public String addRole(@PathVariable("id") Long id, @PathVariable("name") String role) {
+
+        this.userService.addRole(id, role);
+        return "redirect:/users/change/{id}";
+    }
+
+    @PatchMapping("/roles/remove/{id}/{name}")
+    public String removeRole(@PathVariable Long id, @PathVariable("name") String role) {
+        this.userService.removeRole(id, role);
+        return "redirect:/users/change/{id}";
     }
 }

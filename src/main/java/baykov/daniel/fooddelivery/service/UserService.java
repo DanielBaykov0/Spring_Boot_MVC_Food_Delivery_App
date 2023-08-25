@@ -5,6 +5,7 @@ import baykov.daniel.fooddelivery.domain.dto.binding.RegistrationBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.view.UserViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Role;
 import baykov.daniel.fooddelivery.domain.entity.User;
+import baykov.daniel.fooddelivery.repository.RoleRepository;
 import baykov.daniel.fooddelivery.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,6 +22,7 @@ public class UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final CartService cartService;
 
     public void register(RegistrationBindingDto registrationBindingDto) {
@@ -54,7 +55,20 @@ public class UserService {
                 .findAll()
                 .stream()
                 .map(this::mapToUserView)
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    public void removeRole(Long userId, String roleName) {
+        User user = this.userRepository.findUserById(userId);
+        user.getRoles().removeIf(userRole -> userRole.getRole().name().equals("WORKER"));
+        this.userRepository.save(user);
+    }
+
+    public void addRole(Long userId, String roleName) {
+        Role role = this.roleRepository.findByRole(RoleEnum.WORKER).get();
+        User user = this.userRepository.findUserById(userId);
+        user.getRoles().add(role);
+        this.userRepository.save(user);
     }
 
     public User mapToUser(RegistrationBindingDto registrationBindingDto) {
