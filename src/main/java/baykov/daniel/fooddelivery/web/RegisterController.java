@@ -41,7 +41,7 @@ public class RegisterController {
             return "redirect:/users/register";
         }
 
-        this.userService.register(userService.mapToModel(registrationBindingDto));
+        this.userService.register(registrationBindingDto);
         return "redirect:/users/login";
     }
 }

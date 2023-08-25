@@ -1,7 +1,6 @@
 package baykov.daniel.fooddelivery.service;
 
 import baykov.daniel.fooddelivery.domain.dto.binding.ContactBindingDto;
-import baykov.daniel.fooddelivery.domain.dto.model.ContactModelDto;
 import baykov.daniel.fooddelivery.domain.entity.Contact;
 import baykov.daniel.fooddelivery.repository.ContactRepository;
 import lombok.AllArgsConstructor;
@@ -18,12 +17,8 @@ public class ContactService {
     private final ModelMapper modelMapper;
     private final ContactRepository contactRepository;
 
-    public ContactModelDto mapToModel(ContactBindingDto contactBindingDto) {
-        return this.modelMapper.map(contactBindingDto, ContactModelDto.class);
-    }
-
-    public void saveContactMessage(ContactModelDto contactModelDto) {
-        Contact contact = this.modelMapper.map(contactModelDto, Contact.class);
+    public void saveContactMessage(ContactBindingDto contactBindingDto) {
+        Contact contact = this.modelMapper.map(contactBindingDto, Contact.class);
 
         DateTimeFormatter dateTimeFormatter
                 = DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm");

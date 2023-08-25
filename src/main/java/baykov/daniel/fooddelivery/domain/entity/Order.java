@@ -5,17 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Accessors(chain = true)
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
@@ -25,14 +25,15 @@ public class Order extends BaseEntity {
     @Column(nullable = false)
     private BigDecimal price;
 
+    private String comment;
+
+    @Column(nullable = false)
+    private String address;
+
     @Column(nullable = false)
     private LocalDateTime createdOn;
 
-    @Column(nullable = false)
     private LocalDateTime deliveredOn;
-
-    @OneToMany
-    private List<Comment> comments = new ArrayList<>();
 
     @Column(nullable = false)
     private String contactPhoneNumber;

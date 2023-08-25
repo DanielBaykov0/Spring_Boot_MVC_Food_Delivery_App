@@ -2,7 +2,6 @@ package baykov.daniel.fooddelivery.service;
 
 import baykov.daniel.fooddelivery.domain.constant.RoleEnum;
 import baykov.daniel.fooddelivery.domain.dto.binding.RegistrationBindingDto;
-import baykov.daniel.fooddelivery.domain.dto.model.UserModelDto;
 import baykov.daniel.fooddelivery.domain.entity.Role;
 import baykov.daniel.fooddelivery.domain.entity.User;
 import baykov.daniel.fooddelivery.repository.UserRepository;
@@ -22,8 +21,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final CartService cartService;
 
-    public void register(UserModelDto userModelDto) {
-        User user = this.mapToUser(userModelDto);
+    public void register(RegistrationBindingDto registrationBindingDto) {
+        User user = this.mapToUser(registrationBindingDto);
 
         Role userRole = new Role(RoleEnum.USER);
 
@@ -38,11 +37,7 @@ public class UserService {
         return this.userRepository.findUserByUsername(username).orElse(null);
     }
 
-    public UserModelDto mapToModel(RegistrationBindingDto registrationBindingDto) {
-        return this.modelMapper.map(registrationBindingDto, UserModelDto.class);
-    }
-
-    public User mapToUser(UserModelDto userModelDto) {
-        return this.modelMapper.map(userModelDto, User.class);
+    public User mapToUser(RegistrationBindingDto registrationBindingDto) {
+        return this.modelMapper.map(registrationBindingDto, User.class);
     }
 }

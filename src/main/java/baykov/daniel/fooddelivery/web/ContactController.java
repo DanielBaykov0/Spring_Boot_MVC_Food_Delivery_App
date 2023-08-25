@@ -40,7 +40,7 @@ public class ContactController {
             return "redirect:/contact";
         }
 
-        this.contactService.saveContactMessage(this.contactService.mapToModel(contactBindingDto));
+        this.contactService.saveContactMessage(contactBindingDto);
         return "redirect:/";
     }
 }
