@@ -32,6 +32,24 @@ public class OrderController {
         return "finalize-order";
     }
 
+    @GetMapping("/history")
+    public String getOrdersHistory(Model model, Principal principal) {
+        model.addAttribute("orders", this.orderService.getOrdersByUser(principal));
+        return "orders-history-user";
+    }
+
+    @GetMapping("/details/{id}")
+    public String orderDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("order", this.orderService.getOrderById(id));
+        return "order-details";
+    }
+
+    @GetMapping("/all/history")
+    public String getAllOrders(Model model) {
+        model.addAttribute("allOrders", this.orderService.getAllOrders());
+        return "orders-history";
+    }
+
     @PostMapping("/finalize")
     public String finalizeOrder(
             @Valid OrderBindingDto orderDto,
@@ -49,21 +67,9 @@ public class OrderController {
         return "redirect:/";
     }
 
-    @GetMapping("/history")
-    public String getOrdersHistory(Model model, Principal principal) {
-        model.addAttribute("orders", this.orderService.getOrdersByUser(principal));
-        return "orders-history-user";
-    }
-
-    @GetMapping("/details/{id}")
-    public String orderDetails(@PathVariable Long id, Model model) {
-        model.addAttribute("order", this.orderService.getOrderById(id));
-        return "order-details";
-    }
-
-    @GetMapping("/all/history")
-    public String getAllOrders(Model model) {
-        model.addAttribute("allOrders", this.orderService.getAllOrders());
-        return "orders-history";
+    @PatchMapping("/finish/{id}")
+    public String finishOrder(@PathVariable Long id) {
+        this.orderService.finishOrder(id);
+        return "redirect:/orders/all/history";
     }
 }

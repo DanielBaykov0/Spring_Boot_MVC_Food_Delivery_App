@@ -80,6 +80,12 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    public void finishOrder(Long orderId) {
+        Order order = this.orderRepository.findOrderById(orderId);
+        order.setIsDelivered(true);
+        this.orderRepository.saveAndFlush(order);
+    }
+
     private OrderDetailsViewDto mapToOrderView(Order order) {
         OrderDetailsViewDto orderDetailsViewDto = this.modelMapper.map(order, OrderDetailsViewDto.class);
         orderDetailsViewDto.setClient(order.getOwner().getUsername());
