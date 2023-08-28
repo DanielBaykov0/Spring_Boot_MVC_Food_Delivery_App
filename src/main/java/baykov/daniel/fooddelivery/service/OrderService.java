@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static baykov.daniel.fooddelivery.constants.Messages.NO_COMMENT;
+
 @Service
 @AllArgsConstructor
 public class OrderService {
@@ -51,7 +53,7 @@ public class OrderService {
                 .setOwner(user)
                 .setPrice(user.getCart().getProductsSum())
                 .setCreatedOn(LocalDateTime.now())
-                .setComment(orderBindingDto.getComment() != null ? orderBindingDto.getComment() : "no comment")
+                .setComment(orderBindingDto.getComment() != null ? orderBindingDto.getComment() : NO_COMMENT)
                 .setAddress(orderBindingDto.getAddress())
                 .setContactPhoneNumber(orderBindingDto.getContactPhoneNumber())
                 .setIsDelivered(false);
@@ -68,7 +70,7 @@ public class OrderService {
         return this.orderRepository
                 .findAllOrdersByOwnerId(user.getId())
                 .stream()
-                .map(this::mapToOrderView)
+                .map(this::mapToOrderViewDto)
                 .collect(Collectors.toList());
     }
 
@@ -76,7 +78,7 @@ public class OrderService {
         return this.orderRepository
                 .findAll()
                 .stream()
-                .map(this::mapToOrderView)
+                .map(this::mapToOrderViewDto)
                 .collect(Collectors.toList());
     }
 
@@ -86,7 +88,7 @@ public class OrderService {
         this.orderRepository.saveAndFlush(order);
     }
 
-    private OrderDetailsViewDto mapToOrderView(Order order) {
+    private OrderDetailsViewDto mapToOrderViewDto(Order order) {
         OrderDetailsViewDto orderDetailsViewDto = this.modelMapper.map(order, OrderDetailsViewDto.class);
         orderDetailsViewDto.setClient(order.getOwner().getUsername());
         return orderDetailsViewDto;
@@ -94,6 +96,6 @@ public class OrderService {
 
     public OrderDetailsViewDto getOrderById(Long id) {
         Order order = this.orderRepository.findOrderById(id);
-        return mapToOrderView(order);
+        return mapToOrderViewDto(order);
     }
 }

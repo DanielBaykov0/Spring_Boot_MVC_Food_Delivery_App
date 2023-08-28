@@ -10,16 +10,18 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+import static baykov.daniel.fooddelivery.constants.ErrorMessages.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EditProductBindingDto {
 
-    @NotEmpty(message = "Cannot remove desctiption.")
+    @NotEmpty(message = DESCRIPTION_NOT_EMPTY)
     private String description;
 
-    @Positive(message = "Price must be positive.")
-    @NotNull(message = "Please enter a price.")
+    @Positive(message = POSITIVE_PRICE)
+    @NotNull(message = PRICE_REQUIRED)
     private BigDecimal price;
 }

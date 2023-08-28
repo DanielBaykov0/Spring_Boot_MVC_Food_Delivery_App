@@ -13,23 +13,25 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+import static baykov.daniel.fooddelivery.constants.ErrorMessages.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductBindingDto {
+public class AddProductBindingDto {
 
-    @NotEmpty(message = "Please enter a name.")
+    @NotEmpty(message = NAME_REQUIRED)
     private String name;
 
-    @Positive(message = "Price must be positive.")
-    @NotNull(message = "Please enter a price.")
+    @Positive(message = POSITIVE_PRICE)
+    @NotNull(message = PRICE_REQUIRED)
     private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     @NotNull
     private ProductCategoryEnum category;
 
-    @NotEmpty(message = "Please enter a description.")
+    @NotEmpty(message = DESCRIPTION_REQUIRED)
     private String description;
 }

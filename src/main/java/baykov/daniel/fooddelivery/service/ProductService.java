@@ -2,7 +2,7 @@ package baykov.daniel.fooddelivery.service;
 
 import baykov.daniel.fooddelivery.domain.constant.ProductCategoryEnum;
 import baykov.daniel.fooddelivery.domain.dto.binding.EditProductBindingDto;
-import baykov.daniel.fooddelivery.domain.dto.binding.ProductBindingDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.AddProductBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.view.ProductViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Product;
 import baykov.daniel.fooddelivery.repository.ProductRepository;
@@ -42,13 +42,13 @@ public class ProductService {
         this.productRepository.save(product);
     }
 
-    public void addProduct(ProductBindingDto productBindingDto) {
+    public void addProduct(AddProductBindingDto addProductBindingDto) {
         Product product = new Product();
         product
-                .setName(productBindingDto.getName())
-                .setCategory(productBindingDto.getCategory())
-                .setDescription(productBindingDto.getDescription())
-                .setPrice(productBindingDto.getPrice());
+                .setName(addProductBindingDto.getName())
+                .setCategory(addProductBindingDto.getCategory())
+                .setDescription(addProductBindingDto.getDescription())
+                .setPrice(addProductBindingDto.getPrice());
 
         this.productRepository.saveAndFlush(product);
     }

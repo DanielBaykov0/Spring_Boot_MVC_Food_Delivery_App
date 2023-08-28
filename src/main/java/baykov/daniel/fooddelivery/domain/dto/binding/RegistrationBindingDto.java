@@ -14,42 +14,45 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static baykov.daniel.fooddelivery.constants.ErrorMessages.*;
+import static baykov.daniel.fooddelivery.constants.Messages.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldMatch(firstField = "password",
-        secondField = "confirmPassword",
-        message = "Passwords should match.")
+@FieldMatch(firstField = PASSWORD,
+        secondField = CONFIRM_PASSWORD,
+        message = MATCHING_PASSWORDS)
 public class RegistrationBindingDto {
 
-    @NotEmpty(message = "Please enter first name.")
-    @Size(min = 2, max = 15, message = "First name must be between 2 and 15 characters.")
+    @NotEmpty(message = FIRST_NAME_REQUIRED)
+    @Size(min = 2, max = 15, message = FIRST_NAME_BETWEEN_2_15)
     private String firstName;
 
-    @NotEmpty(message = "Please enter last name.")
-    @Size(min = 2, max = 15, message = "Last name must be between 2 and 15 characters.")
+    @NotEmpty(message = LAST_NAME_REQUIRED)
+    @Size(min = 2, max = 15, message = LAST_NAME_BETWEEN_2_15)
     private String lastName;
 
-    @NotEmpty(message = "Please enter username.")
-    @Size(min = 4, message = "Username must be at least 4 characters.")
+    @NotEmpty(message = USERNAME_REQUIRED)
+    @Size(min = 4, message = USERNAME_MINIMUM)
     private String username;
 
-    @NotEmpty(message = "Please enter email.")
-    @ValidUserEmail(message = "Email should be unique.")
+    @NotEmpty(message = EMAIL_REQUIRED)
+    @ValidUserEmail(message = EMAIL_UNIQUE)
     private String email;
 
-    @NotEmpty(message = "Please enter password.")
-    @Size(min = 8, message = "Password must be at least 8 characters.")
+    @NotEmpty(message = PASSWORD_REQUIRED)
+    @Size(min = 8, message = PASSWORD_MINIMUM)
     private String password;
 
     private String confirmPassword;
 
     @Positive
-    @NotNull(message = "Please enter age.")
+    @NotNull(message = AGE_REQUIRED)
     private Integer age;
 
-    @NotEmpty(message = "Please enter phoneNumber.")
+    @NotEmpty(message = PHONE_NUMBER_REQUIRED)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)

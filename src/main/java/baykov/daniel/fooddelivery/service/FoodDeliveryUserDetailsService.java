@@ -3,7 +3,6 @@ package baykov.daniel.fooddelivery.service;
 import baykov.daniel.fooddelivery.domain.entity.Role;
 import baykov.daniel.fooddelivery.domain.entity.User;
 import baykov.daniel.fooddelivery.repository.UserRepository;
-import baykov.daniel.fooddelivery.utils.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
+
+import static baykov.daniel.fooddelivery.constants.ErrorMessages.USER_NOT_FOUND_WITH_EMAIL;
+import static baykov.daniel.fooddelivery.constants.Messages.ROLE;
 
 @AllArgsConstructor
 public class FoodDeliveryUserDetailsService implements UserDetailsService {
@@ -23,7 +25,7 @@ public class FoodDeliveryUserDetailsService implements UserDetailsService {
         return userRepository
                 .findUserByEmailIgnoreCase(email)
                 .map(this::mapToUserDetails)
-                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND_WITH_EMAIL + email));
+                .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND_WITH_EMAIL + email));
     }
 
     private UserDetails mapToUserDetails(User user) {
@@ -42,6 +44,6 @@ public class FoodDeliveryUserDetailsService implements UserDetailsService {
     }
 
     private GrantedAuthority mapRole(Role role) {
-        return new SimpleGrantedAuthority(Messages.ROLE + role.getRole().name());
+        return new SimpleGrantedAuthority(ROLE + role.getRole().name());
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static baykov.daniel.fooddelivery.constants.Messages.DATE_TIME_NOW_PATTERN;
+
 @Service
 @AllArgsConstructor
 public class ContactService {
@@ -21,7 +23,7 @@ public class ContactService {
         Contact contact = this.modelMapper.map(contactBindingDto, Contact.class);
 
         DateTimeFormatter dateTimeFormatter
-                = DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm");
+                = DateTimeFormatter.ofPattern(DATE_TIME_NOW_PATTERN);
         contact.setCreatedOn(LocalDateTime.parse(dateTimeFormatter.format(LocalDateTime.now())));
         this.contactRepository.saveAndFlush(contact);
     }

@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static baykov.daniel.fooddelivery.constants.ErrorMessages.ADDRESS_REQUIRED;
+import static baykov.daniel.fooddelivery.constants.ErrorMessages.CONTACT_PHONE_NUMBER_REQUIRED;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,9 +17,9 @@ public class OrderBindingDto {
 
     private String comment;
 
-    @NotEmpty(message = "Please enter an address.")
+    @NotEmpty(message = ADDRESS_REQUIRED)
     private String address;
 
-    @NotEmpty(message = "Please enter a contact phone number.")
+    @NotEmpty(message = CONTACT_PHONE_NUMBER_REQUIRED)
     private String contactPhoneNumber;
 }

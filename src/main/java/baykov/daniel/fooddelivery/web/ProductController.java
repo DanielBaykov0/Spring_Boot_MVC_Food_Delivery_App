@@ -2,7 +2,7 @@ package baykov.daniel.fooddelivery.web;
 
 import baykov.daniel.fooddelivery.domain.constant.ProductCategoryEnum;
 import baykov.daniel.fooddelivery.domain.dto.binding.EditProductBindingDto;
-import baykov.daniel.fooddelivery.domain.dto.binding.ProductBindingDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.AddProductBindingDto;
 import baykov.daniel.fooddelivery.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -19,8 +19,8 @@ public class ProductController {
     private final ProductService productService;
 
     @ModelAttribute("productDto")
-    public ProductBindingDto initBindingDto() {
-        return new ProductBindingDto();
+    public AddProductBindingDto initBindingDto() {
+        return new AddProductBindingDto();
     }
 
     @ModelAttribute("editedProductDto")
@@ -71,16 +71,16 @@ public class ProductController {
     }
 
     @PostMapping("/products/add")
-    public String postAddProduct(@Valid ProductBindingDto productBindingDto,
+    public String postAddProduct(@Valid AddProductBindingDto addProductBindingDto,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("productDto", productBindingDto);
+            redirectAttributes.addFlashAttribute("productDto", addProductBindingDto);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productDto", bindingResult);
             return "redirect:/products/add";
         }
 
-        this.productService.addProduct(productBindingDto);
+        this.productService.addProduct(addProductBindingDto);
         return "redirect:/";
     }
 
