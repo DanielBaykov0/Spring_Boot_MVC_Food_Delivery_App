@@ -57,6 +57,10 @@ public class ProductService {
         return this.productRepository.findById(id).get().getCategory().name();
     }
 
+    public void deleteProduct(Long productId) {
+        this.productRepository.deleteById(productId);
+    }
+
     private ProductViewDto mapToViewDto(Product product) {
         return this.modelMapper.map(product, ProductViewDto.class);
     }

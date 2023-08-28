@@ -83,4 +83,11 @@ public class ProductController {
         this.productService.addProduct(productBindingDto);
         return "redirect:/";
     }
+
+    @DeleteMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        String category = this.productService.getProductCategory(id);
+        this.productService.deleteProduct(id);
+        return "redirect:/menu/" + category;
+    }
 }
