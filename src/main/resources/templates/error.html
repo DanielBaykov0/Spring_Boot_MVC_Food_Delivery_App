@@ -11,12 +11,11 @@
     <th:block th:insert="~{/fragments/navigation}"></th:block>
 </div>
 
+<div class="container text-center" style="background-color: #d54b43; border-radius: 50px; margin-top: 250px;">
 
-<div class="container" style="background-color: #d54b43; margin-top: 250px; border-radius: 35px; width: 30%;">
+    <h1>Error! Probably you have tried to do something that you don't have authorities to.
+        We will figure this and message you. Click <a th:href="@{/}">here</a> to return to the home page.</h1>
 
-    <h1 class="justify-content-center"
-        style="justify-content: center; margin-bottom: 20px; margin-top: 20px; text-align: center; color: white; font-weight:inherit;">
-        Current order doesn't exist. Enter <a th:href="@{/}">here</a> to return to the home page.</h1>
 </div>
 
 <th:block th:insert="~{fragments/footer}"></th:block>

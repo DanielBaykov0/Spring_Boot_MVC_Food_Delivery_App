@@ -5,6 +5,7 @@ import baykov.daniel.fooddelivery.domain.dto.binding.EditProductBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.binding.AddProductBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.view.ProductViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Product;
+import baykov.daniel.fooddelivery.exception.ObjectNotFoundException;
 import baykov.daniel.fooddelivery.exception.WrongCategoryException;
 import baykov.daniel.fooddelivery.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,8 @@ public class ProductService {
     }
 
     public ProductViewDto getProductById(Long productId) {
-        Product product = this.productRepository.findProductById(productId);
+        Product product = this.productRepository.findById(productId)
+                .orElseThrow(() -> new ObjectNotFoundException(productId, "Product"));
         return this.modelMapper.map(product, ProductViewDto.class);
     }
 

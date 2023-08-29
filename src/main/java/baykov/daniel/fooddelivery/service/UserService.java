@@ -6,6 +6,7 @@ import baykov.daniel.fooddelivery.domain.dto.binding.RegistrationBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.view.UserViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Role;
 import baykov.daniel.fooddelivery.domain.entity.User;
+import baykov.daniel.fooddelivery.exception.ObjectNotFoundException;
 import baykov.daniel.fooddelivery.repository.RoleRepository;
 import baykov.daniel.fooddelivery.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -47,7 +48,8 @@ public class UserService {
     }
 
     public UserViewDto getUserById(Long id) {
-        User user = this.userRepository.findUserById(id);
+        User user = this.userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(id, "User"));
         return this.mapToUserView(user);
     }
 

@@ -97,7 +97,8 @@ public class OrderService {
     }
 
     public void finishOrder(Long orderId) {
-        Order order = this.orderRepository.findOrderById(orderId);
+        Order order = this.orderRepository.findById(orderId)
+                .orElseThrow(() -> new ObjectNotFoundException(orderId, "Order"));
         order.setStatus(OrderStatusEnum.DELIVERED);
         order.setDeliveredOn(LocalDateTime.now());
         this.orderRepository.saveAndFlush(order);
