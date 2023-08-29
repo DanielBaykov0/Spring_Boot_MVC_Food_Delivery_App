@@ -11,4 +11,5 @@ public class Messages {
     public static final String NO_COMMENT = "no comment";
     public static final String FIELDS_MATCH = "Fields should match!";
     public static final String INVALID_USERNAME = "Invalid email!";
+    public static final String PROMOTIONS_CHANGED = "Promotions changed!";
 }
