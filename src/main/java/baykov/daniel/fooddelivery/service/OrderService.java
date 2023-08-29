@@ -6,6 +6,7 @@ import baykov.daniel.fooddelivery.domain.dto.view.OrderDetailsViewDto;
 import baykov.daniel.fooddelivery.domain.dto.view.ProductViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Order;
 import baykov.daniel.fooddelivery.domain.entity.User;
+import baykov.daniel.fooddelivery.exception.ObjectNotFoundException;
 import baykov.daniel.fooddelivery.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -76,6 +77,17 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    public OrderDetailsViewDto getOrderById(Long id) {
+        Order order = this.orderRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(id, "Order"));
+
+        if (order.getComment().isEmpty()) {
+            order.setComment(NO_COMMENT);
+        }
+
+        return mapToOrderViewDto(order);
+    }
+
     public List<OrderDetailsViewDto> getAllOrders() {
         return this.orderRepository
                 .findAll()
@@ -87,6 +99,7 @@ public class OrderService {
     public void finishOrder(Long orderId) {
         Order order = this.orderRepository.findOrderById(orderId);
         order.setStatus(OrderStatusEnum.DELIVERED);
+        order.setDeliveredOn(LocalDateTime.now());
         this.orderRepository.saveAndFlush(order);
     }
 
@@ -94,10 +107,5 @@ public class OrderService {
         OrderDetailsViewDto orderDetailsViewDto = this.modelMapper.map(order, OrderDetailsViewDto.class);
         orderDetailsViewDto.setClient(order.getOwner().getUsername());
         return orderDetailsViewDto;
-    }
-
-    public OrderDetailsViewDto getOrderById(Long id) {
-        Order order = this.orderRepository.findOrderById(id);
-        return mapToOrderViewDto(order);
     }
 }

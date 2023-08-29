@@ -41,7 +41,7 @@ public class OrderController {
     @GetMapping("/details/{id}")
     public String orderDetails(@PathVariable Long id, Model model) {
         model.addAttribute("order", this.orderService.getOrderById(id));
-        return "orders-details-api";
+        return "order-details-api";
     }
 
     @GetMapping("/all/history")

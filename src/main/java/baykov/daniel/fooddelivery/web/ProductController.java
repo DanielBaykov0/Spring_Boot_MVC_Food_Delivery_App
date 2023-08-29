@@ -35,10 +35,10 @@ public class ProductController {
 
     @GetMapping("/menu/{category}")
     public String getCategoryPage(@PathVariable
-                                  ProductCategoryEnum category,
+                                  String category,
                                   Model model) {
-        model.addAttribute("category", category);
-        model.addAttribute("products", this.productService.getAllProducts(category));
+        model.addAttribute("category", this.productService.findCategory(category));
+        model.addAttribute("products", this.productService.getAllProducts(ProductCategoryEnum.valueOf(category)));
         return "categories-page";
     }
 

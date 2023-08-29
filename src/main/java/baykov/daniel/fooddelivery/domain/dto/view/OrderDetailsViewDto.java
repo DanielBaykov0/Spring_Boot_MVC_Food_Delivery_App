@@ -23,6 +23,7 @@ public class OrderDetailsViewDto {
     private String address;
     private String contactPhoneNumber;
     private String client;
+    private String comment;
     private Cart cart;
     private OrderStatusEnum status;
     private Boolean isDelivered;

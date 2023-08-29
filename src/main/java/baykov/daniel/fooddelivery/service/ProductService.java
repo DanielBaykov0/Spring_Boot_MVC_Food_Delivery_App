@@ -5,6 +5,7 @@ import baykov.daniel.fooddelivery.domain.dto.binding.EditProductBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.binding.AddProductBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.view.ProductViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Product;
+import baykov.daniel.fooddelivery.exception.WrongCategoryException;
 import baykov.daniel.fooddelivery.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -59,6 +60,16 @@ public class ProductService {
 
     public void deleteProduct(Long productId) {
         this.productRepository.deleteById(productId);
+    }
+
+    public ProductCategoryEnum findCategory(String category) {
+        for (ProductCategoryEnum categoryEnum : ProductCategoryEnum.values()) {
+            if (categoryEnum.name().equals(category)) {
+                return categoryEnum;
+            }
+        }
+
+        throw new WrongCategoryException(category);
     }
 
     private ProductViewDto mapToViewDto(Product product) {
