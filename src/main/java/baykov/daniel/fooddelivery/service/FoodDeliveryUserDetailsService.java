@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
-import static baykov.daniel.fooddelivery.constants.ErrorMessages.USER_NOT_FOUND_WITH_EMAIL;
-import static baykov.daniel.fooddelivery.constants.Messages.ROLE;
+import static baykov.daniel.fooddelivery.constant.ErrorMessages.USER_NOT_FOUND_WITH_EMAIL;
+import static baykov.daniel.fooddelivery.constant.Messages.ROLE;
 
 @AllArgsConstructor
 public class FoodDeliveryUserDetailsService implements UserDetailsService {

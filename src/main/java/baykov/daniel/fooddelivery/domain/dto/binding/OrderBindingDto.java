@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static baykov.daniel.fooddelivery.constants.ErrorMessages.ADDRESS_REQUIRED;
-import static baykov.daniel.fooddelivery.constants.ErrorMessages.CONTACT_PHONE_NUMBER_REQUIRED;
+import static baykov.daniel.fooddelivery.constant.ErrorMessages.ADDRESS_REQUIRED;
+import static baykov.daniel.fooddelivery.constant.ErrorMessages.CONTACT_PHONE_NUMBER_REQUIRED;
 
 @Getter
 @Setter

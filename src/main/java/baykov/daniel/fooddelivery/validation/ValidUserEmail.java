@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static baykov.daniel.fooddelivery.constants.Messages.INVALID_USERNAME;
+import static baykov.daniel.fooddelivery.constant.Messages.INVALID_USERNAME;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

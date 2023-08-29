@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static baykov.daniel.fooddelivery.constants.Messages.DATE_TIME_NOW_PATTERN;
+import static baykov.daniel.fooddelivery.constant.Messages.DATE_TIME_NOW_PATTERN;
 
 @Service
 @AllArgsConstructor

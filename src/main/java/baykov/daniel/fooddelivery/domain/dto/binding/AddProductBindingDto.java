@@ -13,7 +13,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-import static baykov.daniel.fooddelivery.constants.ErrorMessages.*;
+import static baykov.daniel.fooddelivery.constant.ErrorMessages.*;
 
 @Getter
 @Setter

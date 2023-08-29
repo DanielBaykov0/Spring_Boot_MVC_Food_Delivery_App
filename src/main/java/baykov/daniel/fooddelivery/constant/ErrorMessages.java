@@ -1,4 +1,4 @@
-package baykov.daniel.fooddelivery.constants;
+package baykov.daniel.fooddelivery.constant;
 
 public class ErrorMessages {
 

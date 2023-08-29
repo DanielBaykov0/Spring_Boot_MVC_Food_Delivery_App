@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static baykov.daniel.fooddelivery.constants.Messages.NO_COMMENT;
+import static baykov.daniel.fooddelivery.constant.Messages.NO_COMMENT;
 
 @Service
 @AllArgsConstructor

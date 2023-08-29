@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static baykov.daniel.fooddelivery.constants.ErrorMessages.*;
+import static baykov.daniel.fooddelivery.constant.ErrorMessages.*;
 
 @Getter
 @Setter
