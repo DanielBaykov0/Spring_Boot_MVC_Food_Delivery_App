@@ -1,5 +1,6 @@
 package baykov.daniel.fooddelivery.domain.dto.view;
 
+import baykov.daniel.fooddelivery.domain.constant.OrderStatusEnum;
 import baykov.daniel.fooddelivery.domain.entity.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +24,6 @@ public class OrderDetailsViewDto {
     private String contactPhoneNumber;
     private String client;
     private Cart cart;
+    private OrderStatusEnum status;
     private Boolean isDelivered;
 }

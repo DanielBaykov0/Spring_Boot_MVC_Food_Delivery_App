@@ -1,5 +1,6 @@
 package baykov.daniel.fooddelivery.domain.entity;
 
+import baykov.daniel.fooddelivery.domain.constant.OrderStatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +38,10 @@ public class Order extends BaseEntity {
 
     @Column(nullable = false)
     private String contactPhoneNumber;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatusEnum status;
 
     @Column(nullable = false)
     private Boolean isDelivered;

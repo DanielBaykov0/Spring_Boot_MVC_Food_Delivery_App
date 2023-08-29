@@ -1,5 +1,6 @@
 package baykov.daniel.fooddelivery.service;
 
+import baykov.daniel.fooddelivery.domain.constant.OrderStatusEnum;
 import baykov.daniel.fooddelivery.domain.dto.binding.OrderBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.view.OrderDetailsViewDto;
 import baykov.daniel.fooddelivery.domain.dto.view.ProductViewDto;
@@ -56,6 +57,7 @@ public class OrderService {
                 .setComment(orderBindingDto.getComment() != null ? orderBindingDto.getComment() : NO_COMMENT)
                 .setAddress(orderBindingDto.getAddress())
                 .setContactPhoneNumber(orderBindingDto.getContactPhoneNumber())
+                .setStatus(OrderStatusEnum.IN_PROCESS)
                 .setIsDelivered(false);
 
         this.orderRepository.saveAndFlush(order);
@@ -84,7 +86,7 @@ public class OrderService {
 
     public void finishOrder(Long orderId) {
         Order order = this.orderRepository.findOrderById(orderId);
-        order.setIsDelivered(true);
+        order.setStatus(OrderStatusEnum.DELIVERED);
         this.orderRepository.saveAndFlush(order);
     }
 
