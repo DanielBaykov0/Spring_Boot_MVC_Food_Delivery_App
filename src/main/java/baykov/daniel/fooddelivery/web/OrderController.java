@@ -12,6 +12,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/orders")
@@ -27,26 +29,26 @@ public class OrderController {
 
     @GetMapping("/finalize")
     public String createOrder(Model model, Principal principal) {
-        model.addAttribute("foodPrice", this.orderService.getProductsPrice(principal));
-        model.addAttribute("countBoxes", this.orderService.getProducts(principal).size());
+        model.addAttribute(FOOD_PRICE, this.orderService.getProductsPrice(principal));
+        model.addAttribute(COUNT_BOXES, this.orderService.getProducts(principal).size());
         return "finalize-order";
     }
 
     @GetMapping("/history")
     public String getOrdersHistory(Model model, Principal principal) {
-        model.addAttribute("orders", this.orderService.getOrdersByUser(principal));
+        model.addAttribute(ORDERS, this.orderService.getOrdersByUser(principal));
         return "orders-history-user";
     }
 
     @GetMapping("/details/{id}")
     public String orderDetails(@PathVariable Long id, Model model) {
-        model.addAttribute("order", this.orderService.getOrderById(id));
+        model.addAttribute(ORDER, this.orderService.getOrderById(id));
         return "order-details-api";
     }
 
     @GetMapping("/all/history")
     public String getAllOrders(Model model) {
-        model.addAttribute("allOrders", this.orderService.getAllOrders());
+        model.addAttribute(ALL_ORDERS, this.orderService.getAllOrders());
         return "orders-history";
     }
 

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static baykov.daniel.fooddelivery.constant.Messages.PRODUCT;
+
 @Service
 @AllArgsConstructor
 public class ProductService {
@@ -32,7 +34,7 @@ public class ProductService {
 
     public ProductViewDto getProductById(Long productId) {
         Product product = this.productRepository.findById(productId)
-                .orElseThrow(() -> new ObjectNotFoundException(productId, "Product"));
+                .orElseThrow(() -> new ObjectNotFoundException(productId, PRODUCT));
         return this.modelMapper.map(product, ProductViewDto.class);
     }
 

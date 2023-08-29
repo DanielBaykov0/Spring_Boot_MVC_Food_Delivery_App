@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static baykov.daniel.fooddelivery.constant.Messages.NO_COMMENT;
+import static baykov.daniel.fooddelivery.constant.Messages.ORDER;
 
 @Service
 @AllArgsConstructor
@@ -79,7 +80,7 @@ public class OrderService {
 
     public OrderDetailsViewDto getOrderById(Long id) {
         Order order = this.orderRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(id, "Order"));
+                .orElseThrow(() -> new ObjectNotFoundException(id, ORDER));
 
         if (order.getComment().isEmpty()) {
             order.setComment(NO_COMMENT);
@@ -98,7 +99,7 @@ public class OrderService {
 
     public void finishOrder(Long orderId) {
         Order order = this.orderRepository.findById(orderId)
-                .orElseThrow(() -> new ObjectNotFoundException(orderId, "Order"));
+                .orElseThrow(() -> new ObjectNotFoundException(orderId, ORDER));
         order.setStatus(OrderStatusEnum.DELIVERED);
         order.setDeliveredOn(LocalDateTime.now());
         this.orderRepository.saveAndFlush(order);

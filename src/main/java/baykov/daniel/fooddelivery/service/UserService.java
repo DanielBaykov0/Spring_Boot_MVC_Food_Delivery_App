@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
+import static baykov.daniel.fooddelivery.constant.Messages.USER;
+import static baykov.daniel.fooddelivery.constant.Messages.WORKER;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -49,7 +52,7 @@ public class UserService {
 
     public UserViewDto getUserById(Long id) {
         User user = this.userRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(id, "User"));
+                .orElseThrow(() -> new ObjectNotFoundException(id, USER));
         return this.mapToUserView(user);
     }
 
@@ -75,7 +78,7 @@ public class UserService {
 
     public void removeRole(Long userId, String roleName) {
         User user = this.userRepository.findUserById(userId);
-        user.getRoles().removeIf(userRole -> userRole.getRole().name().equals("WORKER"));
+        user.getRoles().removeIf(userRole -> userRole.getRole().name().equals(WORKER));
         this.userRepository.save(user);
     }
 

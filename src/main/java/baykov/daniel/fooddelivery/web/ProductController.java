@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
+
 @Controller
 @AllArgsConstructor
 public class ProductController {
@@ -37,14 +39,14 @@ public class ProductController {
     public String getCategoryPage(@PathVariable
                                   String category,
                                   Model model) {
-        model.addAttribute("category", this.productService.findCategory(category));
-        model.addAttribute("products", this.productService.getAllProducts(ProductCategoryEnum.valueOf(category)));
+        model.addAttribute(CATEGORY, this.productService.findCategory(category));
+        model.addAttribute(PRODUCTS, this.productService.getAllProducts(ProductCategoryEnum.valueOf(category)));
         return "categories-page";
     }
 
     @GetMapping("/products/edit/{id}")
     public String editProduct(@PathVariable("id") Long productId, Model model) {
-        model.addAttribute("product", this.productService.getProductById(productId));
+        model.addAttribute(PRODUCT, this.productService.getProductById(productId));
         return "edit-product";
     }
 

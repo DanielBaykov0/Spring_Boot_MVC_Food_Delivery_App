@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.CART_PRODUCTS;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/cart")
@@ -24,7 +26,7 @@ public class CartController {
 
     @GetMapping
     public String getCart(Model model, Principal principal) {
-        model.addAttribute("cartProducts", this.orderService.getProducts(principal));
+        model.addAttribute(CART_PRODUCTS, this.orderService.getProducts(principal));
         return "order-cart";
     }
 

@@ -12,6 +12,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.USER;
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.USERS;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/users")
@@ -26,25 +29,25 @@ public class UserController {
 
     @GetMapping("/profile")
     public String getProfile(Model model, Principal principal) {
-        model.addAttribute("user", this.userService.getUserViewDtoByUsername(principal.getName()));
+        model.addAttribute(USER, this.userService.getUserViewDtoByUsername(principal.getName()));
         return "user-profile";
     }
 
     @GetMapping("/profile/{id}")
     public String getProfileById(@PathVariable Long id, Model model) {
-        model.addAttribute("user", this.userService.getUserById(id));
+        model.addAttribute(USER, this.userService.getUserById(id));
         return "user-profile";
     }
 
     @GetMapping("/all")
     public String getAllUsers(Model model) {
-        model.addAttribute("users", this.userService.getAllUsers());
+        model.addAttribute(USERS, this.userService.getAllUsers());
         return "all-users";
     }
 
     @GetMapping("/edit/{id}")
     public String getEditUser(@PathVariable Long id, Model model) {
-        model.addAttribute("user", this.userService.getUserById(id));
+        model.addAttribute(USER, this.userService.getUserById(id));
         return "edit-user";
     }
 
@@ -66,7 +69,7 @@ public class UserController {
     @GetMapping("/change/{id}")
     public String changeRole(@PathVariable Long id, Model model) {
         if (id != 1) {
-            model.addAttribute("user", this.userService.getUserById(id));
+            model.addAttribute("", this.userService.getUserById(id));
             return "roles-change";
         }
 
