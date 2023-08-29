@@ -22,7 +22,18 @@
                     <tr th:each="food:${cartProducts}" th:object="${food}">
                         <td style="width: 5%" class="bg-info" th:text="*{name}">Name</td>
                         <td class="bg-primary" style="width: 15%" th:text="*{description}">{numberOfLikes) likes</td>
-                        <td th:text="*{price}">{content}</td>
+                        <td th:text="*{price}" class="price text-center bg-info">{content}</td>
+                        <td class="text-center bg-primary">
+
+                            <form th:method="PATCH"
+                                  th:action="@{/cart/remove/{id}(id = *{id})}"
+                                  th:object="${food}">
+                                <button class="remove-button justify-content-center" type="submit"
+                                        style="border-color: white"
+                                >Remove
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 </table>
             </div>
