@@ -1,13 +1,14 @@
 package baykov.daniel.fooddelivery.web;
 
+import baykov.daniel.fooddelivery.domain.dto.binding.EditUserBindingDto;
 import baykov.daniel.fooddelivery.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -17,6 +18,11 @@ import java.security.Principal;
 public class UserController {
 
     private final UserService userService;
+
+    @ModelAttribute("editedUser")
+    public EditUserBindingDto initBindingDto() {
+        return new EditUserBindingDto();
+    }
 
     @GetMapping("/profile")
     public String getProfile(Model model, Principal principal) {
@@ -34,6 +40,27 @@ public class UserController {
     public String getAllUsers(Model model) {
         model.addAttribute("users", this.userService.getAllUsers());
         return "all-users";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getEditUser(@PathVariable Long id, Model model) {
+        model.addAttribute("user", this.userService.getUserById(id));
+        return "edit-user";
+    }
+
+    @PatchMapping("/edited/{id}")
+    public String editedProduct(@PathVariable Long id,
+                                @Valid EditUserBindingDto editUserBindingDto,
+                                BindingResult bindingResult,
+                                RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("editedUser", editUserBindingDto);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editedUser", bindingResult);
+            return "redirect:/users/edit/{id}";
+        }
+
+        this.userService.editUser(id, editUserBindingDto);
+        return "redirect:/users/profile/{id}";
     }
 
     @GetMapping("/change/{id}")

@@ -1,6 +1,7 @@
 package baykov.daniel.fooddelivery.service;
 
 import baykov.daniel.fooddelivery.domain.constant.RoleEnum;
+import baykov.daniel.fooddelivery.domain.dto.binding.EditUserBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.binding.RegistrationBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.view.UserViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Role;
@@ -56,6 +57,18 @@ public class UserService {
                 .stream()
                 .map(this::mapToUserView)
                 .toList();
+    }
+
+    public void editUser(Long id, EditUserBindingDto editUserBindingDto) {
+        User user = this.userRepository.findUserById(id);
+        user
+                .setFirstName(editUserBindingDto.getFirstName())
+                .setLastName(editUserBindingDto.getLastName())
+                .setUsername(editUserBindingDto.getUsername())
+                .setAge(editUserBindingDto.getAge())
+                .setPhoneNumber(editUserBindingDto.getPhoneNumber())
+                .setEmail(editUserBindingDto.getEmail());
+        this.userRepository.saveAndFlush(user);
     }
 
     public void removeRole(Long userId, String roleName) {
