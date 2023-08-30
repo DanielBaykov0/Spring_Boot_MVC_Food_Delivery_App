@@ -1,8 +1,8 @@
 package baykov.daniel.fooddelivery.domain.dto.binding;
 
 import baykov.daniel.fooddelivery.domain.constant.GenderEnum;
-import baykov.daniel.fooddelivery.validation.FieldMatch;
-import baykov.daniel.fooddelivery.validation.ValidUserEmail;
+import baykov.daniel.fooddelivery.validation.user.FieldMatch;
+import baykov.daniel.fooddelivery.validation.user.ValidUserEmail;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;

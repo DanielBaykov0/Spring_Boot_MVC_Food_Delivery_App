@@ -1,4 +1,4 @@
-package baykov.daniel.fooddelivery.validation;
+package baykov.daniel.fooddelivery.validation.user;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

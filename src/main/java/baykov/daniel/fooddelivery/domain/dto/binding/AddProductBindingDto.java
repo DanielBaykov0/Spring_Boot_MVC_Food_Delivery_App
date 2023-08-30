@@ -1,6 +1,7 @@
 package baykov.daniel.fooddelivery.domain.dto.binding;
 
 import baykov.daniel.fooddelivery.domain.constant.ProductCategoryEnum;
+import baykov.daniel.fooddelivery.validation.product.ValidProductName;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,6 +23,7 @@ import static baykov.daniel.fooddelivery.constant.ErrorMessages.*;
 public class AddProductBindingDto {
 
     @NotEmpty(message = NAME_REQUIRED)
+    @ValidProductName
     private String name;
 
     @Positive(message = POSITIVE_PRICE)

@@ -1,4 +1,4 @@
-package baykov.daniel.fooddelivery.validation;
+package baykov.daniel.fooddelivery.validation.user;
 
 import baykov.daniel.fooddelivery.repository.UserRepository;
 import jakarta.validation.ConstraintValidator;

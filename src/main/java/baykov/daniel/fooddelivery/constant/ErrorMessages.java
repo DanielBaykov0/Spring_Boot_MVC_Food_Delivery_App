@@ -37,4 +37,5 @@ public class ErrorMessages {
     public static final String MATCHING_PASSWORDS = "Passwords should match.";
     public static final String INVALID_DISCOUNT = "Invalid discount";
 
+    public static final String INVALID_PRODUCT_NAME = "Product name must be at least 4 letters.";
 }
