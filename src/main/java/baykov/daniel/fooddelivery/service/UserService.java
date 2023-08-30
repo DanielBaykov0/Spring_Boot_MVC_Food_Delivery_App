@@ -14,9 +14,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
 import static baykov.daniel.fooddelivery.constant.Messages.USER;
 import static baykov.daniel.fooddelivery.constant.Messages.WORKER;
 
@@ -35,15 +37,22 @@ public class UserService {
 
         Role userRole = new Role(RoleEnum.USER);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singletonList(userRole));
-        user.setCart(this.cartService.getNewCart());
+        user
+                .setPassword(passwordEncoder.encode(user.getPassword()))
+                .setRoles(new ArrayList<>(Collections.singletonList(userRole)))
+                .setCart(this.cartService.getNewCart());
 
         this.userRepository.saveAndFlush(user);
     }
 
     public User getUserByUsername(String username) {
-        return this.userRepository.findUserByUsername(username).orElse(null);
+        return this.userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new ObjectNotFoundException(USER, USERNAME, username));
+    }
+
+    public User getUserByEmail(String email) {
+        return this.userRepository.findUserByEmailIgnoreCase(email)
+                .orElseThrow(() -> new ObjectNotFoundException(USER, EMAIL, email));
     }
 
     public UserViewDto getUserViewDtoByUsername(String username) {
@@ -52,7 +61,7 @@ public class UserService {
 
     public UserViewDto getUserById(Long id) {
         User user = this.userRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(id, USER));
+                .orElseThrow(() -> new ObjectNotFoundException(USER, ID, id));
         return this.mapToUserView(user);
     }
 
@@ -68,25 +77,22 @@ public class UserService {
         User user = this.userRepository.findUserById(id);
         user
                 .setFirstName(editUserBindingDto.getFirstName())
-                .setLastName(editUserBindingDto.getLastName())
-                .setUsername(editUserBindingDto.getUsername())
-                .setAge(editUserBindingDto.getAge())
-                .setPhoneNumber(editUserBindingDto.getPhoneNumber())
-                .setEmail(editUserBindingDto.getEmail());
+                .setLastName(editUserBindingDto.getLastName());
         this.userRepository.saveAndFlush(user);
     }
 
-    public void removeRole(Long userId, String roleName) {
+    public void removeRole(Long userId) {
         User user = this.userRepository.findUserById(userId);
-        user.getRoles().removeIf(userRole -> userRole.getRole().name().equals(WORKER));
-        this.userRepository.save(user);
+        user
+                .getRoles()
+                .removeIf(userRole -> userRole.getRole().name().equals(WORKER));
+        this.userRepository.saveAndFlush(user);
     }
 
-    public void addRole(Long userId, String roleName) {
-        Role role = this.roleRepository.findByRole(RoleEnum.WORKER).get();
+    public void addRole(Long userId) {
         User user = this.userRepository.findUserById(userId);
-        user.getRoles().add(role);
-        this.userRepository.save(user);
+        user.getRoles().add(roleRepository.findByRole(RoleEnum.WORKER).get());
+        this.userRepository.saveAndFlush(user);
     }
 
     public User mapToUser(RegistrationBindingDto registrationBindingDto) {

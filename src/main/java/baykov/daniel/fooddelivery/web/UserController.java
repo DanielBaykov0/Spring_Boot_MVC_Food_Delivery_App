@@ -71,7 +71,7 @@ public class UserController {
         }
 
         this.userService.editUser(id, editUserBindingDto);
-        return "redirect:/users/profile/{id}";
+        return "redirect:/users/profile";
     }
 
     @GetMapping("/change/{id}")
