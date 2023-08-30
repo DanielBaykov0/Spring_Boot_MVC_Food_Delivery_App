@@ -30,4 +30,11 @@ public class ErrorMessages {
 
     public static final String USER_NOT_FOUND_WITH_EMAIL = "User not found with email: ";
 
+    public static final String NO_COMMENT = "no comment";
+    public static final String FIELDS_MATCH = "Fields should match!";
+    public static final String INVALID_USERNAME = "Invalid email!";
+    public static final String PROMOTIONS_CHANGED = "Promotions changed!";
+    public static final String MATCHING_PASSWORDS = "Passwords should match.";
+    public static final String INVALID_DISCOUNT = "Invalid discount";
+
 }

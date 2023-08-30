@@ -8,6 +8,7 @@ import baykov.daniel.fooddelivery.domain.entity.Order;
 import baykov.daniel.fooddelivery.domain.entity.User;
 import baykov.daniel.fooddelivery.exception.ObjectNotFoundException;
 import baykov.daniel.fooddelivery.repository.OrderRepository;
+import baykov.daniel.fooddelivery.service.helper.OrderServiceHelper;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static baykov.daniel.fooddelivery.constant.Messages.NO_COMMENT;
+import static baykov.daniel.fooddelivery.constant.ErrorMessages.NO_COMMENT;
 import static baykov.daniel.fooddelivery.constant.Messages.ORDER;
 
 @Service
@@ -52,20 +53,13 @@ public class OrderService {
         Order order = new Order();
         User user = this.userService.getUserByUsername(principal.getName());
 
-        order
-                .setOwner(user)
-                .setPrice(user.getCart().getProductsSum())
-                .setCreatedOn(LocalDateTime.now())
-                .setComment(orderBindingDto.getComment() != null ? orderBindingDto.getComment() : NO_COMMENT)
-                .setAddress(orderBindingDto.getAddress())
-                .setContactPhoneNumber(orderBindingDto.getContactPhoneNumber())
-                .setStatus(OrderStatusEnum.IN_PROCESS)
-                .setIsDelivered(false);
+        OrderServiceHelper.buildOrder(orderBindingDto, order, user);
 
         this.orderRepository.saveAndFlush(order);
         user.getCart()
                 .setProducts(new ArrayList<>())
-                .setProductsSum(BigDecimal.ZERO);
+                .setProductsSum(BigDecimal.ZERO)
+                .setProductsCount(0L);
     }
 
     @Transactional

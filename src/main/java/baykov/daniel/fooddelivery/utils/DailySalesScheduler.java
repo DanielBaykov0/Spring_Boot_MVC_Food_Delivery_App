@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
-import static baykov.daniel.fooddelivery.constant.Messages.PROMOTIONS_CHANGED;
+import static baykov.daniel.fooddelivery.constant.ErrorMessages.PROMOTIONS_CHANGED;
 
 @Component
 public class DailySalesScheduler {

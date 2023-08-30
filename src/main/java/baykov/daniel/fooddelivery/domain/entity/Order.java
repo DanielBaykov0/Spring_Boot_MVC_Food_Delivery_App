@@ -32,17 +32,19 @@ public class Order extends BaseEntity {
     private String address;
 
     @Column(nullable = false)
+    private String contactPhoneNumber;
+
+    private String discount;
+
+    @Column(nullable = false)
     private LocalDateTime createdOn;
 
     private LocalDateTime deliveredOn;
 
     @Column(nullable = false)
-    private String contactPhoneNumber;
+    private Boolean isDelivered;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatusEnum status;
-
-    @Column(nullable = false)
-    private Boolean isDelivered;
 }

@@ -18,13 +18,14 @@ public class OrderDetailsViewDto {
 
     private Long id;
     private BigDecimal price;
-    private LocalDateTime createdOn;
-    private LocalDateTime deliveredOn;
+    private String comment;
     private String address;
     private String contactPhoneNumber;
+    private String discount;
     private String client;
-    private String comment;
     private Cart cart;
-    private OrderStatusEnum status;
+    private LocalDateTime createdOn;
+    private LocalDateTime deliveredOn;
     private Boolean isDelivered;
+    private OrderStatusEnum status;
 }

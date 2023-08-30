@@ -30,7 +30,7 @@ public class OrderController {
     @GetMapping("/finalize")
     public String createOrder(Model model, Principal principal) {
         model.addAttribute(FOOD_PRICE, this.orderService.getProductsPrice(principal));
-        model.addAttribute(COUNT_BOXES, this.orderService.getProducts(principal).size());
+        model.addAttribute(COUNT_PRODUCTS, this.orderService.getProducts(principal).size());
         return "finalize-order";
     }
 
