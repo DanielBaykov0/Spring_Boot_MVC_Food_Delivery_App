@@ -78,6 +78,15 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<OrderDetailsViewDto> getInProgressOrdersByUser(User user) {
+        return this.orderRepository
+                .findAllOrdersByStatusAndOwnerId(user.getId(), OrderStatusEnum.IN_PROCESS)
+                .stream()
+                .map(this::mapToOrderViewDto)
+                .collect(Collectors.toList());
+    }
+
     public OrderDetailsViewDto getOrderById(Long id) {
         Order order = this.orderRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(id, ORDER));
@@ -102,6 +111,13 @@ public class OrderService {
                 .orElseThrow(() -> new ObjectNotFoundException(orderId, ORDER));
         order.setStatus(OrderStatusEnum.DELIVERED);
         order.setDeliveredOn(LocalDateTime.now());
+        this.orderRepository.saveAndFlush(order);
+    }
+
+    public void cancelOrder(Long orderId) {
+        Order order = this.orderRepository.findById(orderId)
+                .orElseThrow(() -> new ObjectNotFoundException(orderId, ORDER));
+        order.setStatus(OrderStatusEnum.CANCELLED);
         this.orderRepository.saveAndFlush(order);
     }
 
