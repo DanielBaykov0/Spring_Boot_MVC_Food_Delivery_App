@@ -1,5 +1,6 @@
 package baykov.daniel.fooddelivery.domain.dto.binding;
 
+import baykov.daniel.fooddelivery.validation.common.ValidPhoneNumber;
 import baykov.daniel.fooddelivery.validation.order.DiscountMatch;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class OrderBindingDto {
     private String address;
 
     @NotEmpty(message = CONTACT_PHONE_NUMBER_REQUIRED)
+    @ValidPhoneNumber
     private String contactPhoneNumber;
 
     @DiscountMatch

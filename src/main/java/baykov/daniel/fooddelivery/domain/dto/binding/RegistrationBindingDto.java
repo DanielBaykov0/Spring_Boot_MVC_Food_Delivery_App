@@ -1,6 +1,9 @@
 package baykov.daniel.fooddelivery.domain.dto.binding;
 
 import baykov.daniel.fooddelivery.domain.constant.GenderEnum;
+import baykov.daniel.fooddelivery.validation.common.ValidEmail;
+import baykov.daniel.fooddelivery.validation.common.ValidPersonName;
+import baykov.daniel.fooddelivery.validation.common.ValidPhoneNumber;
 import baykov.daniel.fooddelivery.validation.user.FieldMatch;
 import baykov.daniel.fooddelivery.validation.user.ValidUserEmail;
 import jakarta.persistence.EnumType;
@@ -27,11 +30,11 @@ import static baykov.daniel.fooddelivery.constant.Messages.*;
 public class RegistrationBindingDto {
 
     @NotEmpty(message = FIRST_NAME_REQUIRED)
-    @Size(min = 2, max = 15, message = FIRST_NAME_BETWEEN_2_15)
+    @ValidPersonName
     private String firstName;
 
     @NotEmpty(message = LAST_NAME_REQUIRED)
-    @Size(min = 2, max = 15, message = LAST_NAME_BETWEEN_2_15)
+    @ValidPersonName
     private String lastName;
 
     @NotEmpty(message = USERNAME_REQUIRED)
@@ -40,6 +43,7 @@ public class RegistrationBindingDto {
 
     @NotEmpty(message = EMAIL_REQUIRED)
     @ValidUserEmail(message = EMAIL_UNIQUE)
+    @ValidEmail
     private String email;
 
     @NotEmpty(message = PASSWORD_REQUIRED)
@@ -53,6 +57,7 @@ public class RegistrationBindingDto {
     private Integer age;
 
     @NotEmpty(message = PHONE_NUMBER_REQUIRED)
+    @ValidPhoneNumber
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
