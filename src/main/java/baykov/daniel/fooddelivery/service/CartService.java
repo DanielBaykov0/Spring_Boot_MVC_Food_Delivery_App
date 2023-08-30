@@ -3,6 +3,7 @@ package baykov.daniel.fooddelivery.service;
 import baykov.daniel.fooddelivery.domain.entity.Cart;
 import baykov.daniel.fooddelivery.domain.entity.Product;
 import baykov.daniel.fooddelivery.domain.entity.User;
+import baykov.daniel.fooddelivery.exception.ObjectNotFoundException;
 import baykov.daniel.fooddelivery.repository.CartRepository;
 import baykov.daniel.fooddelivery.repository.ProductRepository;
 import baykov.daniel.fooddelivery.repository.UserRepository;
@@ -10,7 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
 
 @Service
 @AllArgsConstructor
@@ -21,18 +22,22 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Transactional
-    public void addToCart(Long id, Principal principal) {
-        User user = this.userRepository.findByUsername(principal.getName());
-        Product product = this.productRepository.findProductById(id);
+    public void addToCart(Long id, String email) {
+        User user = this.userRepository.findUserByEmailIgnoreCase(email)
+                .orElseThrow(() -> new ObjectNotFoundException(USER, EMAIL, email));
+        Product product = this.productRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(PRODUCT, ID, id));
 
         user.getCart().addProduct(product);
         user.getCart().increaseProductsSum(product.getPrice());
     }
 
     @Transactional
-    public void removeFromCart(Long id, Principal principal) {
-        User user = this.userRepository.findByUsername(principal.getName());
-        Product product = this.productRepository.findProductById(id);
+    public void removeFromCart(Long id, String email) {
+        User user = this.userRepository.findUserByEmailIgnoreCase(email)
+                .orElseThrow(() -> new ObjectNotFoundException(USER, EMAIL, email));
+        Product product = this.productRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(PRODUCT, ID, id));
 
         user.getCart().getProducts().remove(product);
         user.getCart().decreaseProductsSum(product.getPrice());

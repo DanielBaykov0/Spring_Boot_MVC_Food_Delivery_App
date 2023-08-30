@@ -17,8 +17,8 @@ public class ErrorController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ModelAndView productNotFound(ObjectNotFoundException objectNotFoundException) {
         ModelAndView modelAndView = new ModelAndView("object-not-found");
-        modelAndView.addObject(OBJECT_ID, objectNotFoundException.getId());
-        modelAndView.addObject(OBJECT_TYPE, objectNotFoundException.getObjectType());
+        modelAndView.addObject(OBJECT_ID, objectNotFoundException.getFieldValue());
+        modelAndView.addObject(OBJECT_TYPE, objectNotFoundException.getFieldValueString());
         return modelAndView;
     }
 }

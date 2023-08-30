@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
-import static baykov.daniel.fooddelivery.constant.ControllerConstants.CART_PRODUCTS;
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
 
 @Controller
 @AllArgsConstructor
@@ -26,20 +26,21 @@ public class CartController {
 
     @GetMapping
     public String getCart(Model model, Principal principal) {
-        model.addAttribute(CART_PRODUCTS, this.orderService.getProducts(principal));
+        model.addAttribute(CART_PRODUCTS, this.orderService.getProducts(principal.getName()));
+        model.addAttribute(PRODUCTS_PRICE, this.orderService.getProductsPrice(principal.getName()));
+        model.addAttribute(COUNT_PRODUCTS, this.orderService.getProducts(principal.getName()));
         return "order-cart";
     }
 
     @PatchMapping("/add/{id}")
     public String addToCart(@PathVariable Long id, Principal principal) {
-        String category = this.productService.getProductCategory(id);
-        this.cartService.addToCart(id, principal);
-        return "redirect:/menu" + category;
+        this.cartService.addToCart(id, principal.getName());
+        return "redirect:/menu" + this.productService.getProductCategory(id);
     }
 
     @PatchMapping("/remove/{id}")
     public String removeFromCart(@PathVariable Long id, Principal principal) {
-        this.cartService.removeFromCart(id, principal);
+        this.cartService.removeFromCart(id, principal.getName());
         return "redirect:/cart";
     }
 }

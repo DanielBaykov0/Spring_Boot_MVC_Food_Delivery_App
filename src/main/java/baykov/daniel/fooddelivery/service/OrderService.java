@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.ID;
 import static baykov.daniel.fooddelivery.constant.ErrorMessages.NO_COMMENT;
 import static baykov.daniel.fooddelivery.constant.Messages.ORDER;
 
@@ -33,8 +33,8 @@ public class OrderService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public List<ProductViewDto> getProducts(Principal principal) {
-        User user = this.userService.getUserByUsername(principal.getName());
+    public List<ProductViewDto> getProducts(String email) {
+        User user = this.userService.getUserByEmail(email);
         return user
                 .getCart()
                 .getProducts()
@@ -43,15 +43,15 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public BigDecimal getProductsPrice(Principal principal) {
-        User user = this.userService.getUserByUsername(principal.getName());
+    public BigDecimal getProductsPrice(String email) {
+        User user = this.userService.getUserByEmail(email);
         return user.getCart().getProductsSum();
     }
 
     @Transactional
-    public void makeOrder(OrderBindingDto orderBindingDto, Principal principal) {
+    public void makeOrder(OrderBindingDto orderBindingDto, String email) {
         Order order = new Order();
-        User user = this.userService.getUserByUsername(principal.getName());
+        User user = this.userService.getUserByEmail(email);
 
         OrderServiceHelper.buildOrder(orderBindingDto, order, user);
 
@@ -63,8 +63,8 @@ public class OrderService {
     }
 
     @Transactional
-    public List<OrderDetailsViewDto> getOrdersByUser(Principal principal) {
-        User user = this.userService.getUserByUsername(principal.getName());
+    public List<OrderDetailsViewDto> getOrdersByUser(String email) {
+        User user = this.userService.getUserByEmail(email);
         return this.orderRepository
                 .findAllOrdersByOwnerId(user.getId())
                 .stream()
@@ -83,7 +83,7 @@ public class OrderService {
 
     public OrderDetailsViewDto getOrderById(Long id) {
         Order order = this.orderRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException(id, ORDER));
+                .orElseThrow(() -> new ObjectNotFoundException(ORDER, ID, id));
 
         if (order.getComment().isEmpty()) {
             order.setComment(NO_COMMENT);
@@ -100,17 +100,17 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public void finishOrder(Long orderId) {
-        Order order = this.orderRepository.findById(orderId)
-                .orElseThrow(() -> new ObjectNotFoundException(orderId, ORDER));
+    public void finishOrder(Long id) {
+        Order order = this.orderRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(ORDER, ID, id));
         order.setStatus(OrderStatusEnum.DELIVERED);
         order.setDeliveredOn(LocalDateTime.now());
         this.orderRepository.saveAndFlush(order);
     }
 
-    public void cancelOrder(Long orderId) {
-        Order order = this.orderRepository.findById(orderId)
-                .orElseThrow(() -> new ObjectNotFoundException(orderId, ORDER));
+    public void cancelOrder(Long id) {
+        Order order = this.orderRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(ORDER, ID, id));
         order.setStatus(OrderStatusEnum.CANCELLED);
         this.orderRepository.saveAndFlush(order);
     }

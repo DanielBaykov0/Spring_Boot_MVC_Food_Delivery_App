@@ -8,11 +8,22 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ObjectNotFoundException extends RuntimeException {
 
-    private final Long id;
-    private final String objectType;
+    private String resourceName;
+    private String fieldName;
+    private Long fieldValue;
+    private String fieldValueString;
 
-    public ObjectNotFoundException(Long id, String objectType) {
-        this.id = id;
-        this.objectType = objectType;
+    public ObjectNotFoundException(String resourceName, String fieldName, Long fieldValue) {
+        super(String.format("%s not found with %s : '%s'", resourceName, fieldName, fieldValue));
+        this.resourceName = resourceName;
+        this.fieldName = fieldName;
+        this.fieldValue = fieldValue;
+    }
+
+    public ObjectNotFoundException(String resourceName, String fieldName, String fieldValueString) {
+        super(String.format("%s not found with %s : '%s'", resourceName, fieldName, fieldValueString));
+        this.resourceName = resourceName;
+        this.fieldName = fieldName;
+        this.fieldValueString = fieldValueString;
     }
 }
