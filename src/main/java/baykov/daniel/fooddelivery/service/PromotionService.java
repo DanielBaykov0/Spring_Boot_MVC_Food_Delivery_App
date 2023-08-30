@@ -17,16 +17,16 @@ public class PromotionService {
     private final ProductRepository productRepository;
 
     public void makePromotions(DayOfWeek dayOfWeek) {
-        Product margherita = this.productRepository.findByName(MARGHERITA);
-        Product pepperoni = this.productRepository.findByName(PEPPERONI);
-        Product capricciosa = this.productRepository.findByName(CAPRICCIOSA);
-        Product chickenBurger = this.productRepository.findByName(CHICKEN_BURGER);
-        Product veganBurger = this.productRepository.findByName(VEGAN_BURGER);
-        Product satoshi = this.productRepository.findByName(SATOSHI);
-        Product sweetFries = this.productRepository.findByName(SWEET_FRIES);
-        Product brownie = this.productRepository.findByName(BROWNIE);
-        Product doughnuts = this.productRepository.findByName(DOUGHNUTS);
-        Product mousse = this.productRepository.findByName(MOUSSE);
+        Product margherita = this.productRepository.findProductByName(MARGHERITA);
+        Product pepperoni = this.productRepository.findProductByName(PEPPERONI);
+        Product capricciosa = this.productRepository.findProductByName(CAPRICCIOSA);
+        Product chickenBurger = this.productRepository.findProductByName(CHICKEN_BURGER);
+        Product veganBurger = this.productRepository.findProductByName(VEGAN_BURGER);
+        Product satoshi = this.productRepository.findProductByName(SATOSHI);
+        Product sweetFries = this.productRepository.findProductByName(SWEET_FRIES);
+        Product brownie = this.productRepository.findProductByName(BROWNIE);
+        Product doughnuts = this.productRepository.findProductByName(DOUGHNUTS);
+        Product mousse = this.productRepository.findProductByName(MOUSSE);
 
         switch (dayOfWeek) {
             case MONDAY -> monday(margherita, brownie, mousse);

@@ -6,7 +6,6 @@ public class ControllerConstants {
     public static final String OBJECT_TYPE = "objectType";
 
     public static final String FOOD_PRICE = "foodPrice";
-    public static final String COUNT_BOXES = "countBoxes";
     public static final String ORDERS = "orders";
     public static final String ORDER = "order";
     public static final String ALL_ORDERS = "allOrders";
@@ -18,6 +17,7 @@ public class ControllerConstants {
     public static final String NAME = "name";
     public static final String ID = "id";
     public static final String EMAIL = "email";
+    public static final String USERNAME = "username";
     public static final String ID_ATTRIBUTE = "idAttribute";
 
     public static final String CART_PRODUCTS = "cartProducts";

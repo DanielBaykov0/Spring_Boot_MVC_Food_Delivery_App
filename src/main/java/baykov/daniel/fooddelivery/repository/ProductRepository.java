@@ -10,5 +10,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllProductsByCategory(ProductCategoryEnum productCategoryEnum);
 
-    Product findByName(String name);
+    Product findProductById(Long id);
+
+    Product findProductByName(String name);
 }

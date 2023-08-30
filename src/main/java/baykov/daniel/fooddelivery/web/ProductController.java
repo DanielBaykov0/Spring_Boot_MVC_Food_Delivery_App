@@ -40,7 +40,7 @@ public class ProductController {
                                   String category,
                                   Model model) {
         model.addAttribute(CATEGORY, this.productService.findCategory(category));
-        model.addAttribute(PRODUCTS, this.productService.getAllProducts(ProductCategoryEnum.valueOf(category)));
+        model.addAttribute(PRODUCTS, this.productService.getAllProductsByCategory(ProductCategoryEnum.valueOf(category)));
         return "categories-page";
     }
 

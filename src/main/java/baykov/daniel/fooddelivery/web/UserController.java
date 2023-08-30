@@ -12,8 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
-import static baykov.daniel.fooddelivery.constant.ControllerConstants.USER;
-import static baykov.daniel.fooddelivery.constant.ControllerConstants.USERS;
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
 
 @Controller
 @AllArgsConstructor
@@ -30,6 +29,10 @@ public class UserController {
     @GetMapping("/profile")
     public String getProfile(Model model, Principal principal) {
         model.addAttribute(USER, this.userService.getUserViewDtoByUsername(principal.getName()));
+        model.addAttribute(COUNT_PRODUCTS, this.userService
+                .getUserByEmail(principal.getName())
+                .getCart()
+                .getProductsCount());
         return "user-profile";
     }
 
@@ -46,16 +49,21 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    public String getEditUser(@PathVariable Long id, Model model) {
+    public String getEditUser(@PathVariable Long id, Model model, Principal principal) {
         model.addAttribute(USER, this.userService.getUserById(id));
+        model.addAttribute(COUNT_PRODUCTS, this.userService
+                .getUserByEmail(principal.getName())
+                .getCart()
+                .getProductsCount());
         return "edit-user";
     }
 
     @PatchMapping("/edited/{id}")
-    public String editedProduct(@PathVariable Long id,
-                                @Valid EditUserBindingDto editUserBindingDto,
-                                BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes) {
+    public String editedUser(
+            @PathVariable Long id,
+            @Valid EditUserBindingDto editUserBindingDto,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("editedUser", editUserBindingDto);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editedUser", bindingResult);
@@ -68,24 +76,20 @@ public class UserController {
 
     @GetMapping("/change/{id}")
     public String changeRole(@PathVariable Long id, Model model) {
-        if (id != 1) {
-            model.addAttribute("", this.userService.getUserById(id));
-            return "roles-change";
-        }
-
-        return "redirect:/users/all";
+        model.addAttribute(USER, this.userService.getUserById(id));
+        return "roles-change";
     }
 
-    @PatchMapping("/roles/add/{id}/{name}")
-    public String addRole(@PathVariable("id") Long id, @PathVariable("name") String role) {
+    @PatchMapping("/roles/add/{id}")
+    public String addRole(@PathVariable("id") Long id) {
 
-        this.userService.addRole(id, role);
+        this.userService.addRole(id);
         return "redirect:/users/change/{id}";
     }
 
-    @PatchMapping("/roles/remove/{id}/{name}")
-    public String removeRole(@PathVariable Long id, @PathVariable("name") String role) {
-        this.userService.removeRole(id, role);
+    @PatchMapping("/roles/remove/{id}")
+    public String removeRole(@PathVariable Long id) {
+        this.userService.removeRole(id);
         return "redirect:/users/change/{id}";
     }
 }
