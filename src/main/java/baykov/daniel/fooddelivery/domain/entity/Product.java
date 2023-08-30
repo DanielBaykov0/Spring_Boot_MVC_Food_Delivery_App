@@ -25,10 +25,10 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String description;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductCategoryEnum category;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String description;
 }

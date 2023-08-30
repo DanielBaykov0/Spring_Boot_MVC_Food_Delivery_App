@@ -42,7 +42,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private GenderEnum genderEnum;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner")

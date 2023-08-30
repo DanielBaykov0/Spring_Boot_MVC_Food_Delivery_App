@@ -42,9 +42,6 @@ public class Order extends BaseEntity {
     private LocalDateTime deliveredOn;
 
     @Column(nullable = false)
-    private Boolean isDelivered;
-
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatusEnum status;
 }
