@@ -1,8 +1,7 @@
 package baykov.daniel.fooddelivery.web;
 
-import baykov.daniel.fooddelivery.domain.constant.ProductCategoryEnum;
-import baykov.daniel.fooddelivery.domain.dto.binding.EditProductBindingDto;
 import baykov.daniel.fooddelivery.domain.dto.binding.AddProductBindingDto;
+import baykov.daniel.fooddelivery.domain.dto.binding.EditProductBindingDto;
 import baykov.daniel.fooddelivery.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -12,10 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.PRODUCT;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -30,49 +30,12 @@ public class ProductController {
         return new EditProductBindingDto();
     }
 
-    @GetMapping("/menu")
-    public String getMenu() {
-        return "menu-categories";
-    }
-
-    @GetMapping("/menu/{category}")
-    public String getCategoryPage(@PathVariable
-                                  String category,
-                                  Model model) {
-        model.addAttribute(CATEGORY, this.productService.findCategory(category));
-        model.addAttribute(PRODUCTS, this.productService.getAllProductsByCategory(ProductCategoryEnum.valueOf(category)));
-        return "categories-page";
-    }
-
-    @GetMapping("/products/edit/{id}")
-    public String editProduct(@PathVariable("id") Long productId, Model model) {
-        model.addAttribute(PRODUCT, this.productService.getProductById(productId));
-        return "edit-product";
-    }
-
-
-    @PatchMapping("/products/edited/{id}")
-    public String editedProduct(
-            @PathVariable("id") Long productId,
-            @Valid EditProductBindingDto editProductBindingDto,
-            BindingResult bindingResult,
-            RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("editedProductDto", editProductBindingDto);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editedProductDto", bindingResult);
-            return "redirect:/products/edited/{id}";
-        }
-
-        this.productService.editProduct(productId, editProductBindingDto);
-        return "redirect:/menu";
-    }
-
-    @GetMapping("/products/add")
-    public String addProduct() {
+    @GetMapping("/add")
+    public String getAddProduct() {
         return "add-product";
     }
 
-    @PostMapping("/products/add")
+    @PostMapping("/add")
     public String postAddProduct(@Valid AddProductBindingDto addProductBindingDto,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
@@ -86,7 +49,29 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @DeleteMapping("/products/delete/{id}")
+    @GetMapping("/edit/{id}")
+    public String getEditProduct(@PathVariable Long id, Model model) {
+        model.addAttribute(PRODUCT, this.productService.getProductById(id));
+        return "edit-product";
+    }
+
+    @PatchMapping("/edited/{id}")
+    public String editedProduct(
+            @PathVariable Long id,
+            @Valid EditProductBindingDto editProductBindingDto,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("editedProductDto", editProductBindingDto);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editedProductDto", bindingResult);
+            return "redirect:/products/edit/{id}";
+        }
+
+        this.productService.editProduct(id, editProductBindingDto);
+        return "redirect:/menu" + this.productService.getProductCategory(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         String category = this.productService.getProductCategory(id);
         this.productService.deleteProduct(id);
