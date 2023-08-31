@@ -4,7 +4,8 @@ import baykov.daniel.fooddelivery.domain.constant.GenderEnum;
 import baykov.daniel.fooddelivery.validation.common.ValidEmail;
 import baykov.daniel.fooddelivery.validation.common.ValidPersonName;
 import baykov.daniel.fooddelivery.validation.common.ValidPhoneNumber;
-import baykov.daniel.fooddelivery.validation.user.FieldMatch;
+import baykov.daniel.fooddelivery.validation.user.PasswordValueMatches;
+import baykov.daniel.fooddelivery.validation.user.ValidPassword;
 import baykov.daniel.fooddelivery.validation.user.ValidUserEmail;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,15 +19,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import static baykov.daniel.fooddelivery.constant.ErrorMessages.*;
-import static baykov.daniel.fooddelivery.constant.Messages.*;
+import static baykov.daniel.fooddelivery.constant.Messages.CONFIRM_PASSWORD;
+import static baykov.daniel.fooddelivery.constant.Messages.PASSWORD;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldMatch(firstField = PASSWORD,
-        secondField = CONFIRM_PASSWORD,
-        message = MATCHING_PASSWORDS)
+@PasswordValueMatches.List({
+        @PasswordValueMatches(
+                field = PASSWORD,
+                fieldMatch = CONFIRM_PASSWORD
+        )
+})
 public class RegistrationBindingDto {
 
     @NotEmpty(message = FIRST_NAME_REQUIRED)
@@ -48,8 +53,10 @@ public class RegistrationBindingDto {
 
     @NotEmpty(message = PASSWORD_REQUIRED)
     @Size(min = 8, message = PASSWORD_MINIMUM)
+    @ValidPassword
     private String password;
 
+    @ValidPassword
     private String confirmPassword;
 
     @Positive

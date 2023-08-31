@@ -28,14 +28,14 @@ public class ErrorMessages {
     public static final String DESCRIPTION_BETWEEN_10_2000 = "Description must be between 10 and 2000 characters.";
 
     public static final String NO_COMMENT = "no comment";
-    public static final String FIELDS_MATCH = "Fields should match!";
     public static final String PROMOTIONS_CHANGED = "Promotions changed!";
-    public static final String MATCHING_PASSWORDS = "Passwords should match.";
+    public static final String MATCHING_PASSWORDS = "Those passwords didn't match. Please try again.";
 
     public static final String INVALID_PERSON_NAME = "Name must be between 2 and 15 characters.";
     public static final String INVALID_USERNAME = "Invalid email!";
     public static final String INVALID_PRODUCT_NAME = "Product name must be at least 4 letters.";
     public static final String INVALID_EMAIL = "Please enter a valid email address.";
     public static final String INVALID_PHONE_NUMBER = "Please enter a valid phone number.";
-    public static final String INVALID_DISCOUNT = "Invalid discount";
+    public static final String INVALID_DISCOUNT = "Invalid discount.";
+    public static final String INVALID_PASSWORD = "Your password must have at least 8 characters, with a mix of uppercase, lowercase, numbers and symbols.";
 }
