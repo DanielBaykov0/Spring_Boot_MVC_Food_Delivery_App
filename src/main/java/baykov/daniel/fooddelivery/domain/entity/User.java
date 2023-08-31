@@ -40,7 +40,8 @@ public class User extends BaseEntity {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private GenderEnum genderEnum;
+    @Enumerated(EnumType.STRING)
+    private GenderEnum gender;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
