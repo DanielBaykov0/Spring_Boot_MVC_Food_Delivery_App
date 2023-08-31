@@ -24,19 +24,49 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                // everyone
                                 .requestMatchers(mvc.pattern("/")).permitAll()
-                                .requestMatchers(mvc.pattern("/users/login")).permitAll()
-                                .requestMatchers(mvc.pattern("/users/register")).permitAll()
-                                .requestMatchers(mvc.pattern("/users/login-error")).permitAll()
-                                .requestMatchers(mvc.pattern("/contact")).permitAll()
                                 .requestMatchers(mvc.pattern("/menu/")).permitAll()
                                 .requestMatchers(mvc.pattern("/menu/**")).permitAll()
-                                .requestMatchers(mvc.pattern("/api/orders/details/all")).permitAll()
-                                .requestMatchers(mvc.pattern("/closed")).permitAll()
+                                .requestMatchers(mvc.pattern("/contact")).permitAll()
+                                .requestMatchers(mvc.pattern("/users/profile")).permitAll()
+                                // anonymous users
+                                .requestMatchers(mvc.pattern("/")).anonymous()
+                                .requestMatchers(mvc.pattern("/users/login")).anonymous()
+                                .requestMatchers(mvc.pattern("/users/register")).anonymous()
+                                .requestMatchers(mvc.pattern("/users/login-error")).anonymous()
+                                .requestMatchers(mvc.pattern("/contact")).anonymous()
+                                // user
+                                .requestMatchers(mvc.pattern("/")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/menu/")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/menu/**")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/closed")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/contact")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/users/profile")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/users/edit/**")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/orders/finalize")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/orders/history")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/orders/details/**")).hasRole(RoleEnum.USER.name())
                                 .requestMatchers(mvc.pattern("/cart")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/cart/add/**")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/orders/**")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/orders/all/history")).hasAnyRole(RoleEnum.WORKER.name(), RoleEnum.ADMIN.name())
+                                // worker
+                                .requestMatchers(mvc.pattern("/")).hasRole(RoleEnum.WORKER.name())
+                                .requestMatchers(mvc.pattern("/menu/")).hasRole(RoleEnum.WORKER.name())
+                                .requestMatchers(mvc.pattern("/menu/**")).hasRole(RoleEnum.WORKER.name())
+                                .requestMatchers(mvc.pattern("/users/edit/**")).hasRole(RoleEnum.WORKER.name())
+                                .requestMatchers(mvc.pattern("/orders/details/**")).hasRole(RoleEnum.WORKER.name())
+                                .requestMatchers(mvc.pattern("/orders/all/history")).hasRole(RoleEnum.WORKER.name())
+                                .requestMatchers(mvc.pattern("/users/profile")).hasRole(RoleEnum.WORKER.name())
+                                // admin
+                                .requestMatchers(mvc.pattern("/")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/menu/")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/menu/**")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/products/add")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/products/edit/**")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/orders/all/history")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/users/all")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/users/change/**")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/users/profile")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/users/profile/**")).hasRole(RoleEnum.ADMIN.name())
                                 .anyRequest().authenticated())
                 .formLogin(login ->
                         login.loginPage("/users/login")
@@ -47,7 +77,10 @@ public class SecurityConfig {
                 .logout(logout ->
                         logout.logoutUrl("/users/logout")
                                 .logoutSuccessUrl("/")
-                                .invalidateHttpSession(true));
+                                .invalidateHttpSession(true))
+                .rememberMe(rememberMe ->
+                        rememberMe.key("yellowKey")
+                                .tokenValiditySeconds(24 * 60 * 60));
 
         return http.build();
     }
