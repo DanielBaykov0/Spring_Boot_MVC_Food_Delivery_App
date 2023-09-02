@@ -20,6 +20,7 @@ public class UserViewDto {
     private String firstName;
     private String lastName;
     private String username;
+    private String email;
     private String phoneNumber;
     private Integer age;
     private GenderEnum gender;

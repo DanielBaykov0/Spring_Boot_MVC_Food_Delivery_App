@@ -19,7 +19,7 @@ public class OrderServiceHelper {
                 .getCart()
                 .getProductsSum()
                 .add(BigDecimal.valueOf(user.getCart().getProductsCount() * 0.5))
-                .add(BigDecimal.valueOf(3.50));
+                .add(BigDecimal.valueOf(5.00));
 
         price = orderBindingDto
                 .getDiscount()
