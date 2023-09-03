@@ -7,6 +7,7 @@ import baykov.daniel.fooddelivery.domain.dto.view.UserViewDto;
 import baykov.daniel.fooddelivery.domain.entity.Role;
 import baykov.daniel.fooddelivery.domain.entity.User;
 import baykov.daniel.fooddelivery.exception.ObjectNotFoundException;
+import baykov.daniel.fooddelivery.exception.ResourceNotFoundException;
 import baykov.daniel.fooddelivery.repository.RoleRepository;
 import baykov.daniel.fooddelivery.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
-import static baykov.daniel.fooddelivery.constant.Messages.USER;
-import static baykov.daniel.fooddelivery.constant.Messages.WORKER;
+import static baykov.daniel.fooddelivery.constant.Messages.ROLE_WORKER;
 
 @Service
 @AllArgsConstructor
@@ -30,12 +30,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final CartService cartService;
 
     public void register(RegistrationBindingDto registrationBindingDto) {
         User user = this.mapToUser(registrationBindingDto);
 
-        Role userRole = new Role(RoleEnum.USER);
+        Role userRole = this.roleService.getRole(RoleEnum.ROLE_USER);
 
         user
                 .setPassword(passwordEncoder.encode(user.getPassword()))
@@ -47,16 +48,17 @@ public class UserService {
 
     public User getUserByUsername(String username) {
         return this.userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException(USER, USERNAME, username));
+                .orElseThrow(() -> new ResourceNotFoundException(USER, USERNAME, username));
     }
 
     public User getUserByEmail(String email) {
         return this.userRepository.findUserByEmailIgnoreCase(email)
-                .orElseThrow(() -> new ObjectNotFoundException(USER, EMAIL, email));
+                .orElseThrow(() -> new ResourceNotFoundException(USER, EMAIL, email));
     }
 
-    public UserViewDto getUserViewDtoByUsername(String username) {
-        return mapToUserView(this.userRepository.findByUsername(username));
+    public UserViewDto getUserViewDtoByEmail(String email) {
+        return mapToUserView(this.userRepository.findUserByEmailIgnoreCase(email)
+                .orElseThrow(() -> new ResourceNotFoundException(USER, EMAIL, email)));
     }
 
     public UserViewDto getUserById(Long id) {
@@ -85,13 +87,13 @@ public class UserService {
         User user = this.userRepository.findUserById(userId);
         user
                 .getRoles()
-                .removeIf(userRole -> userRole.getRole().name().equals(WORKER));
+                .removeIf(userRole -> userRole.getRole().name().equals(ROLE_WORKER));
         this.userRepository.saveAndFlush(user);
     }
 
     public void addRole(Long userId) {
         User user = this.userRepository.findUserById(userId);
-        user.getRoles().add(roleRepository.findByRole(RoleEnum.WORKER).get());
+        user.getRoles().add(roleRepository.findByRole(RoleEnum.ROLE_WORKER).get());
         this.userRepository.saveAndFlush(user);
     }
 

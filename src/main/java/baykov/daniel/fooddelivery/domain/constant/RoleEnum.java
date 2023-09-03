@@ -2,5 +2,5 @@ package baykov.daniel.fooddelivery.domain.constant;
 
 public enum RoleEnum {
 
-    ADMIN, USER, WORKER
+    ROLE_ADMIN, ROLE_USER, ROLE_WORKER
 }

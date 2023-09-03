@@ -6,12 +6,9 @@ public class Messages {
     public static final String PASSWORD = "password";
     public static final String CONFIRM_PASSWORD = "confirmPassword";
 
-    public static final String ROLE = "ROLE_";
-
     public static final String ORDER = "Order";
     public static final String PRODUCT = "Product";
-    public static final String USER = "User";
-    public static final String WORKER = "Worker";
+    public static final String ROLE_WORKER = "ROLE_WORKER";
 
     public static final String MARGHERITA = "Margherita";
     public static final String PEPPERONI = "Pepperoni";
