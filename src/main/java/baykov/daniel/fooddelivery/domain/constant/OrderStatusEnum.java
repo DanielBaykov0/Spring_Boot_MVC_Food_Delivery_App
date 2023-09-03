@@ -2,5 +2,5 @@ package baykov.daniel.fooddelivery.domain.constant;
 
 public enum OrderStatusEnum {
 
-    DELIVERED, IN_PROCESS, CANCELLED
+    DELIVERED, IN_PROGRESS, CANCELLED
 }

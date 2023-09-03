@@ -2,8 +2,10 @@ package baykov.daniel.fooddelivery.constant;
 
 public class ControllerConstants {
 
-    public static final String OBJECT_ID = "objectId";
-    public static final String OBJECT_TYPE = "objectType";
+    public static final String RESOURCE_NAME = "resourceName";
+    public static final String FIELD_NAME = "fieldName";
+    public static final String FIELD_VALUE = "fieldValue";
+    public static final String FIELD_VALUE_STRING = "fieldValueString";
 
     public static final String FOOD_PRICE = "foodPrice";
     public static final String ORDERS = "orders";
@@ -21,6 +23,6 @@ public class ControllerConstants {
     public static final String ID_ATTRIBUTE = "idAttribute";
 
     public static final String CART_PRODUCTS = "cartProducts";
-    public static final String COUNT_PRODUCTS = "countProducts";
+    public static final String PRODUCTS_COUNT = "productsCount";
     public static final String PRODUCTS_PRICE = "productsPrice";
 }
