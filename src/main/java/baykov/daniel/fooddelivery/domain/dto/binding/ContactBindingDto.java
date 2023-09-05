@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import static baykov.daniel.fooddelivery.constant.ErrorMessages.*;
 
@@ -15,6 +16,7 @@ import static baykov.daniel.fooddelivery.constant.ErrorMessages.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class ContactBindingDto {
 
     @NotEmpty(message = NAME_REQUIRED)
