@@ -1,24 +1,35 @@
 package baykov.daniel.fooddelivery.web;
 
 import baykov.daniel.fooddelivery.exception.ObjectNotFoundException;
+import baykov.daniel.fooddelivery.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import static baykov.daniel.fooddelivery.constant.ControllerConstants.OBJECT_ID;
-import static baykov.daniel.fooddelivery.constant.ControllerConstants.OBJECT_TYPE;
+import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
 
 @ControllerAdvice
 public class ErrorController {
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView stringNotFound(ResourceNotFoundException resourceNotFoundException) {
+        ModelAndView modelAndView = new ModelAndView("string-not-found");
+        modelAndView.addObject(RESOURCE_NAME, resourceNotFoundException.getResourceName());
+        modelAndView.addObject(FIELD_NAME, resourceNotFoundException.getFieldName());
+        modelAndView.addObject(FIELD_VALUE_STRING, resourceNotFoundException.getFieldValueString());
+        return modelAndView;
+    }
+
     @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ModelAndView productNotFound(ObjectNotFoundException objectNotFoundException) {
-        ModelAndView modelAndView = new ModelAndView("object-not-found");
-        modelAndView.addObject(OBJECT_ID, objectNotFoundException.getFieldValue());
-        modelAndView.addObject(OBJECT_TYPE, objectNotFoundException.getFieldValueString());
+    public ModelAndView idNotFound(ObjectNotFoundException objectNotFoundException) {
+        ModelAndView modelAndView = new ModelAndView("id-not-found");
+        modelAndView.addObject(RESOURCE_NAME, objectNotFoundException.getResourceName());
+        modelAndView.addObject(FIELD_NAME, objectNotFoundException.getFieldName());
+        modelAndView.addObject(FIELD_VALUE, objectNotFoundException.getFieldValue());
         return modelAndView;
     }
 }

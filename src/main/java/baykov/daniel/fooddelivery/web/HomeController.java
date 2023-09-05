@@ -22,10 +22,10 @@ public class HomeController {
     @GetMapping("/")
     public String getHome(Principal principal, Model model) {
         if (principal != null) {
-            User user = this.userService.getUserByUsername(principal.getName());
-            model.addAttribute(NAME, user.getUsername());
+            User user = this.userService.getUserByEmail(principal.getName());
+            model.addAttribute(EMAIL, user.getEmail());
             model.addAttribute(ORDERS, orderService.getInProgressOrdersByUser(user));
-            model.addAttribute(COUNT_PRODUCTS, user.getCart().getProductsCount());
+            model.addAttribute(PRODUCTS_COUNT, user.getCart().getProductsCount());
         }
 
         return "index";
