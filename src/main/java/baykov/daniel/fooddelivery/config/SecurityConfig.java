@@ -2,7 +2,7 @@ package baykov.daniel.fooddelivery.config;
 
 import baykov.daniel.fooddelivery.domain.constant.RoleEnum;
 import baykov.daniel.fooddelivery.repository.UserRepository;
-import baykov.daniel.fooddelivery.service.FoodDeliveryUserDetailsService;
+import baykov.daniel.fooddelivery.service.CustomUserDetailsService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,46 +31,27 @@ public class SecurityConfig {
                                 .requestMatchers(mvc.pattern("/contact")).permitAll()
                                 .requestMatchers(mvc.pattern("/users/profile")).permitAll()
                                 // anonymous users
-                                .requestMatchers(mvc.pattern("/")).anonymous()
                                 .requestMatchers(mvc.pattern("/users/login")).anonymous()
                                 .requestMatchers(mvc.pattern("/users/register")).anonymous()
                                 .requestMatchers(mvc.pattern("/users/login-error")).anonymous()
-                                .requestMatchers(mvc.pattern("/contact")).anonymous()
                                 // user
-                                .requestMatchers(mvc.pattern("/")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/menu/")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/menu/**")).hasRole(RoleEnum.USER.name())
                                 .requestMatchers(mvc.pattern("/closed")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/contact")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/users/profile")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/users/edit/**")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/users/edit/**")).hasAnyRole(RoleEnum.USER.name(), RoleEnum.WORKER.name())
                                 .requestMatchers(mvc.pattern("/orders/finalize")).hasRole(RoleEnum.USER.name())
                                 .requestMatchers(mvc.pattern("/orders/history")).hasRole(RoleEnum.USER.name())
-                                .requestMatchers(mvc.pattern("/orders/details/**")).hasRole(RoleEnum.USER.name())
+                                .requestMatchers(mvc.pattern("/orders/details/**")).hasAnyRole(RoleEnum.USER.name(), RoleEnum.WORKER.name())
                                 .requestMatchers(mvc.pattern("/cart")).hasRole(RoleEnum.USER.name())
-                                // worker
-                                .requestMatchers(mvc.pattern("/")).hasRole(RoleEnum.WORKER.name())
-                                .requestMatchers(mvc.pattern("/menu/")).hasRole(RoleEnum.WORKER.name())
-                                .requestMatchers(mvc.pattern("/menu/**")).hasRole(RoleEnum.WORKER.name())
-                                .requestMatchers(mvc.pattern("/users/edit/**")).hasRole(RoleEnum.WORKER.name())
-                                .requestMatchers(mvc.pattern("/orders/details/**")).hasRole(RoleEnum.WORKER.name())
-                                .requestMatchers(mvc.pattern("/orders/all/history")).hasRole(RoleEnum.WORKER.name())
-                                .requestMatchers(mvc.pattern("/users/profile")).hasRole(RoleEnum.WORKER.name())
                                 // admin
-                                .requestMatchers(mvc.pattern("/")).hasRole(RoleEnum.ADMIN.name())
-                                .requestMatchers(mvc.pattern("/menu/")).hasRole(RoleEnum.ADMIN.name())
-                                .requestMatchers(mvc.pattern("/menu/**")).hasRole(RoleEnum.ADMIN.name())
                                 .requestMatchers(mvc.pattern("/products/add")).hasRole(RoleEnum.ADMIN.name())
                                 .requestMatchers(mvc.pattern("/products/edit/**")).hasRole(RoleEnum.ADMIN.name())
-                                .requestMatchers(mvc.pattern("/orders/all/history")).hasRole(RoleEnum.ADMIN.name())
+                                .requestMatchers(mvc.pattern("/orders/all/history")).hasAnyRole(RoleEnum.ADMIN.name(), RoleEnum.WORKER.name())
                                 .requestMatchers(mvc.pattern("/users/all")).hasRole(RoleEnum.ADMIN.name())
                                 .requestMatchers(mvc.pattern("/users/change/**")).hasRole(RoleEnum.ADMIN.name())
-                                .requestMatchers(mvc.pattern("/users/profile")).hasRole(RoleEnum.ADMIN.name())
                                 .requestMatchers(mvc.pattern("/users/profile/**")).hasRole(RoleEnum.ADMIN.name())
                                 .anyRequest().authenticated())
                 .formLogin(login ->
                         login.loginPage("/users/login")
-                                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                                .usernameParameter("email")
                                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
                                 .defaultSuccessUrl("/")
                                 .failureForwardUrl("/users/login-error"))
@@ -97,6 +78,6 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new FoodDeliveryUserDetailsService(userRepository);
+        return new CustomUserDetailsService(userRepository);
     }
 }

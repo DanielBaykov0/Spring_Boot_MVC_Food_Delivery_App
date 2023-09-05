@@ -8,7 +8,8 @@ public class Messages {
 
     public static final String ORDER = "Order";
     public static final String PRODUCT = "Product";
-    public static final String ROLE_WORKER = "ROLE_WORKER";
+    public static final String WORKER = "WORKER";
+    public static final String ROLE = "ROLE_";
 
     public static final String MARGHERITA = "Margherita";
     public static final String PEPPERONI = "Pepperoni";
