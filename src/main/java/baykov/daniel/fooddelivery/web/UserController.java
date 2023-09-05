@@ -28,8 +28,8 @@ public class UserController {
 
     @GetMapping("/profile")
     public String getProfile(Model model, Principal principal) {
-        model.addAttribute(USER, this.userService.getUserViewDtoByUsername(principal.getName()));
-        model.addAttribute(COUNT_PRODUCTS, this.userService
+        model.addAttribute(USER, this.userService.getUserViewDtoByEmail(principal.getName()));
+        model.addAttribute(PRODUCTS_COUNT, this.userService
                 .getUserByEmail(principal.getName())
                 .getCart()
                 .getProductsCount());
@@ -51,7 +51,7 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String getEditUser(@PathVariable Long id, Model model, Principal principal) {
         model.addAttribute(USER, this.userService.getUserById(id));
-        model.addAttribute(COUNT_PRODUCTS, this.userService
+        model.addAttribute(PRODUCTS_COUNT, this.userService
                 .getUserByEmail(principal.getName())
                 .getCart()
                 .getProductsCount());

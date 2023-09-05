@@ -28,14 +28,14 @@ public class CartController {
     public String getCart(Model model, Principal principal) {
         model.addAttribute(CART_PRODUCTS, this.orderService.getProducts(principal.getName()));
         model.addAttribute(PRODUCTS_PRICE, this.orderService.getProductsPrice(principal.getName()));
-        model.addAttribute(COUNT_PRODUCTS, this.orderService.getProducts(principal.getName()));
+        model.addAttribute(PRODUCTS_COUNT, this.orderService.getProducts(principal.getName()).size());
         return "order-cart";
     }
 
     @PatchMapping("/add/{id}")
     public String addToCart(@PathVariable Long id, Principal principal) {
         this.cartService.addToCart(id, principal.getName());
-        return "redirect:/menu" + this.productService.getProductCategory(id);
+        return "redirect:/menu/" + this.productService.getProductCategory(id);
     }
 
     @PatchMapping("/remove/{id}")

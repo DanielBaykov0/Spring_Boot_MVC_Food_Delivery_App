@@ -68,7 +68,7 @@ public class ProductController {
         }
 
         this.productService.editProduct(id, editProductBindingDto);
-        return "redirect:/menu" + this.productService.getProductCategory(id);
+        return "redirect:/menu/" + this.productService.getProductCategory(id);
     }
 
     @DeleteMapping("/delete/{id}")

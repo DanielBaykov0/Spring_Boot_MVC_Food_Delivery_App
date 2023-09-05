@@ -1,6 +1,5 @@
 package baykov.daniel.fooddelivery.web;
 
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +18,7 @@ public class AuthController {
 
     @PostMapping("/login-error")
     public String failedLogin(
-            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+            @ModelAttribute("email")
             String email,
             RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("email", email);

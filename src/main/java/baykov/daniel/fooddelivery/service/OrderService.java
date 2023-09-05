@@ -75,7 +75,7 @@ public class OrderService {
     @Transactional
     public List<OrderDetailsViewDto> getInProgressOrdersByUser(User user) {
         return this.orderRepository
-                .findAllOrdersByOwnerIdAndStatus(user.getId(), OrderStatusEnum.IN_PROCESS)
+                .findAllOrdersByOwnerIdAndStatus(user.getId(), OrderStatusEnum.IN_PROGRESS)
                 .stream()
                 .map(this::mapToOrderViewDto)
                 .collect(Collectors.toList());

@@ -1,14 +1,15 @@
 package baykov.daniel.fooddelivery.web;
 
 import baykov.daniel.fooddelivery.domain.constant.ProductCategoryEnum;
+import baykov.daniel.fooddelivery.exception.WrongCategoryException;
 import baykov.daniel.fooddelivery.service.ProductService;
 import baykov.daniel.fooddelivery.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
@@ -25,7 +26,7 @@ public class MenuController {
     @GetMapping
     public String getMenu(Principal principal, Model model) {
         if (principal != null) {
-            model.addAttribute(COUNT_PRODUCTS, this.userService
+            model.addAttribute(PRODUCTS_COUNT, this.userService
                     .getUserByEmail(principal.getName())
                     .getCart()
                     .getProductsCount());
@@ -40,12 +41,20 @@ public class MenuController {
         model.addAttribute(PRODUCTS, this.productService.getAllProductsByCategory(ProductCategoryEnum.valueOf(category)));
 
         if (principal != null) {
-            model.addAttribute(COUNT_PRODUCTS, this.userService
+            model.addAttribute(PRODUCTS_COUNT, this.userService
                     .getUserByEmail(principal.getName())
                     .getCart()
                     .getProductsCount());
         }
 
         return "categories-page";
+    }
+
+    @ExceptionHandler(WrongCategoryException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView categoryDoesNotExist(WrongCategoryException wrongCategoryException) {
+        ModelAndView modelAndView = new ModelAndView("category-does-not-exist");
+        modelAndView.addObject(CATEGORY, wrongCategoryException.getCategory());
+        return modelAndView;
     }
 }

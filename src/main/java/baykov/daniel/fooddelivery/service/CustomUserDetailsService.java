@@ -13,9 +13,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 
 import static baykov.daniel.fooddelivery.constant.ErrorMessages.USER_NOT_FOUND_WITH_EMAIL;
+import static baykov.daniel.fooddelivery.constant.Messages.ROLE;
 
 @AllArgsConstructor
-public class FoodDeliveryUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -43,6 +44,6 @@ public class FoodDeliveryUserDetailsService implements UserDetailsService {
     }
 
     private GrantedAuthority mapRole(Role role) {
-        return new SimpleGrantedAuthority(role.getRole().name());
+        return new SimpleGrantedAuthority(ROLE + role.getRole().name());
     }
 }

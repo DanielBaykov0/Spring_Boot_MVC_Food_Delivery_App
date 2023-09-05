@@ -29,7 +29,7 @@ public class OrderController {
     @GetMapping("/finalize")
     public String getFinalizeOrder(Model model, Principal principal) {
         model.addAttribute(FOOD_PRICE, this.orderService.getProductsPrice(principal.getName()));
-        model.addAttribute(COUNT_PRODUCTS, this.orderService.getProducts(principal.getName()).size());
+        model.addAttribute(PRODUCTS_COUNT, this.orderService.getProducts(principal.getName()).size());
         return "finalize-order";
     }
 
@@ -52,7 +52,7 @@ public class OrderController {
     @GetMapping("/history")
     public String getOrdersHistory(Model model, Principal principal) {
         model.addAttribute(ORDERS, this.orderService.getOrdersByUser(principal.getName()));
-        model.addAttribute(COUNT_PRODUCTS, this.orderService.getProducts(principal.getName()).size());
+        model.addAttribute(PRODUCTS_COUNT, this.orderService.getProducts(principal.getName()).size());
         return "orders-history-user";
     }
 

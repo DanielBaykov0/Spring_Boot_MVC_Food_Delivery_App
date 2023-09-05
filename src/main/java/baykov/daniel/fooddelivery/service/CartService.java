@@ -4,6 +4,7 @@ import baykov.daniel.fooddelivery.domain.entity.Cart;
 import baykov.daniel.fooddelivery.domain.entity.Product;
 import baykov.daniel.fooddelivery.domain.entity.User;
 import baykov.daniel.fooddelivery.exception.ObjectNotFoundException;
+import baykov.daniel.fooddelivery.exception.ResourceNotFoundException;
 import baykov.daniel.fooddelivery.repository.CartRepository;
 import baykov.daniel.fooddelivery.repository.ProductRepository;
 import baykov.daniel.fooddelivery.repository.UserRepository;
@@ -24,7 +25,7 @@ public class CartService {
     @Transactional
     public void addToCart(Long id, String email) {
         User user = this.userRepository.findUserByEmailIgnoreCase(email)
-                .orElseThrow(() -> new ObjectNotFoundException(USER, EMAIL, email));
+                .orElseThrow(() -> new ResourceNotFoundException(USER, EMAIL, email));
         Product product = this.productRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(PRODUCT, ID, id));
 
@@ -35,7 +36,7 @@ public class CartService {
     @Transactional
     public void removeFromCart(Long id, String email) {
         User user = this.userRepository.findUserByEmailIgnoreCase(email)
-                .orElseThrow(() -> new ObjectNotFoundException(USER, EMAIL, email));
+                .orElseThrow(() -> new ResourceNotFoundException(USER, EMAIL, email));
         Product product = this.productRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(PRODUCT, ID, id));
 

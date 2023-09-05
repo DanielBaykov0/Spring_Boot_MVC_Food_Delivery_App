@@ -28,11 +28,11 @@ public class OrderServiceHelper {
         order
                 .setOwner(user)
                 .setPrice(price)
-                .setDiscount(order.getDiscount())
-                .setComment(order.getComment() != null ? orderBindingDto.getComment() : NO_COMMENT)
-                .setAddress(order.getAddress())
-                .setContactPhoneNumber(order.getContactPhoneNumber())
+                .setDiscount(orderBindingDto.getDiscount())
+                .setComment(orderBindingDto.getComment() != null ? orderBindingDto.getComment() : NO_COMMENT)
+                .setAddress(orderBindingDto.getAddress())
+                .setContactPhoneNumber(orderBindingDto.getContactPhoneNumber())
                 .setCreatedOn(LocalDateTime.now())
-                .setStatus(OrderStatusEnum.IN_PROCESS);
+                .setStatus(OrderStatusEnum.IN_PROGRESS);
     }
 }

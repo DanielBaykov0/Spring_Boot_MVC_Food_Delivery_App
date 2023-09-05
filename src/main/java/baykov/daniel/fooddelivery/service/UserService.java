@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static baykov.daniel.fooddelivery.constant.ControllerConstants.*;
-import static baykov.daniel.fooddelivery.constant.Messages.ROLE_WORKER;
+import static baykov.daniel.fooddelivery.constant.Messages.WORKER;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public class UserService {
     public void register(RegistrationBindingDto registrationBindingDto) {
         User user = this.mapToUser(registrationBindingDto);
 
-        Role userRole = this.roleService.getRole(RoleEnum.ROLE_USER);
+        Role userRole = this.roleService.getRole(RoleEnum.USER);
 
         user
                 .setPassword(passwordEncoder.encode(user.getPassword()))
@@ -87,13 +87,13 @@ public class UserService {
         User user = this.userRepository.findUserById(userId);
         user
                 .getRoles()
-                .removeIf(userRole -> userRole.getRole().name().equals(ROLE_WORKER));
+                .removeIf(userRole -> userRole.getRole().name().equals(WORKER));
         this.userRepository.saveAndFlush(user);
     }
 
     public void addRole(Long userId) {
         User user = this.userRepository.findUserById(userId);
-        user.getRoles().add(roleRepository.findByRole(RoleEnum.ROLE_WORKER).get());
+        user.getRoles().add(roleRepository.findByRole(RoleEnum.WORKER).get());
         this.userRepository.saveAndFlush(user);
     }
 
