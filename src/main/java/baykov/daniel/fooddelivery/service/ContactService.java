@@ -18,13 +18,12 @@ public class ContactService {
 
     private final ModelMapper modelMapper;
     private final ContactRepository contactRepository;
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_NOW_PATTERN);
 
     public void saveContactMessage(ContactBindingDto contactBindingDto) {
         Contact contact = this.modelMapper.map(contactBindingDto, Contact.class);
 
-        DateTimeFormatter dateTimeFormatter
-                = DateTimeFormatter.ofPattern(DATE_TIME_NOW_PATTERN);
-        contact.setCreatedOn(LocalDateTime.parse(dateTimeFormatter.format(LocalDateTime.now())));
+        contact.setCreatedOn(LocalDateTime.parse(dateTimeFormatter.format(LocalDateTime.now()), dateTimeFormatter));
         this.contactRepository.saveAndFlush(contact);
     }
 }
