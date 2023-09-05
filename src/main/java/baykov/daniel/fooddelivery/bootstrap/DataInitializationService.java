@@ -27,9 +27,9 @@ public class DataInitializationService {
 
     private static List<Role> getUserRoles() {
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role(RoleEnum.ROLE_ADMIN));
-        roles.add(new Role(RoleEnum.ROLE_USER));
-        roles.add(new Role(RoleEnum.ROLE_WORKER));
+        roles.add(new Role(RoleEnum.ADMIN));
+        roles.add(new Role(RoleEnum.USER));
+        roles.add(new Role(RoleEnum.WORKER));
         return roles;
     }
 
@@ -37,8 +37,8 @@ public class DataInitializationService {
     public void init() {
         initRoles();
         initAdmin();
-        initWorkers();
         initUsers();
+        initWorkers();
     }
 
     public void initRoles() {
@@ -78,7 +78,7 @@ public class DataInitializationService {
                     .setPhoneNumber("0887080808")
                     .setRoles(roleRepository.findAll()
                             .stream()
-                            .filter(r -> r.getRole() == RoleEnum.ROLE_USER)
+                            .filter(r -> r.getRole() == RoleEnum.USER)
                             .collect(Collectors.toList()))
                     .setCart(this.cartService.getNewCart());
 
@@ -95,7 +95,7 @@ public class DataInitializationService {
                     .setPhoneNumber("0887090909")
                     .setRoles(roleRepository.findAll()
                             .stream()
-                            .filter(r -> r.getRole() == RoleEnum.ROLE_USER)
+                            .filter(r -> r.getRole() == RoleEnum.USER)
                             .collect(Collectors.toList()))
                     .setCart(this.cartService.getNewCart());
 
@@ -112,7 +112,7 @@ public class DataInitializationService {
                     .setPhoneNumber("0887040404")
                     .setRoles(roleRepository.findAll()
                             .stream()
-                            .filter(r -> r.getRole() == RoleEnum.ROLE_USER)
+                            .filter(r -> r.getRole() == RoleEnum.USER)
                             .collect(Collectors.toList()))
                     .setCart(this.cartService.getNewCart());
 
@@ -134,7 +134,7 @@ public class DataInitializationService {
                     .setPhoneNumber("0887010101")
                     .setRoles(roleRepository.findAll()
                             .stream()
-                            .filter(r -> r.getRole() != RoleEnum.ROLE_ADMIN)
+                            .filter(r -> r.getRole() == RoleEnum.WORKER)
                             .collect(Collectors.toList()))
                     .setCart(this.cartService.getNewCart());
 
@@ -151,7 +151,7 @@ public class DataInitializationService {
                     .setPhoneNumber("0887020202")
                     .setRoles(roleRepository.findAll()
                             .stream()
-                            .filter(r -> r.getRole() != RoleEnum.ROLE_ADMIN)
+                            .filter(r -> r.getRole() == RoleEnum.WORKER)
                             .collect(Collectors.toList()))
                     .setCart(this.cartService.getNewCart());
 
