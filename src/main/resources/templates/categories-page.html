@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <title>Order food</title>
+    <title th:text="|Menu - ${category}|"></title>
     <th:block th:insert="~{/fragments/header}"></th:block>
 </head>
 
@@ -11,59 +12,60 @@
     <th:block th:insert="~{/fragments/navigation}"></th:block>
 </div>
 
-<div>
-    <h1 th:text="${#strings.capitalize(category)}" class="category-heading text-center text-white"></h1>
+<div class="container"
+     style="background-color: #FFDB58;
+            border-radius: 25px;
+            font-family: Georgia, serif;
+            width: 80%;
+            margin-bottom: 60px;">
+
+    <h1 th:text="${#strings.capitalize(category)}" class="category-heading text-center text-black"></h1>
+
+    <table id="dtBasicExample" class="products-table"
+           style="width: 90%; margin-right: auto; margin-left: auto; margin-bottom: 0">
+
+        <tbody>
+        <tr class="row mb-2 mt-2 text-black" th:each="product : ${products}">
+
+            <td th:text="*{product.name}" style="font-weight: bold">Cheeseburger</td>
+
+            <td th:text="|*{product.price} &euro;|">Price</td>
+            <td th:text="|*{product.description}|">Description</td>
+
+            <td sec:authorize="isAuthenticated() && !hasAnyAuthority('ROLE_ADMIN','ROLE_WORKER')"
+                style="margin-bottom:10px">
+
+                <form th:method="PATCH"
+                      th:action="@{/cart/add/{id}(id=${product.id})}"
+                      th:object="${product}">
+                    <button class="order-button text-center text-decoration-none" type="submit"
+                    >Add to cart
+                    </button>
+                </form>
+
+            </td>
+
+            <td sec:authorize="hasAuthority('ROLE_ADMIN')" style="margin-bottom:10px">
+                <a class="order-button text-center text-decoration-none"
+                   th:href="@{/products/edit/{id}(id=${product.id})}"
+                >Edit product</a>
+            </td>
+
+            <td sec:authorize="hasAuthority('ROLE_ADMIN')" style="margin-bottom:10px">
+
+                <form th:method="delete"
+                      th:action="@{/products/delete/{id}(id=${product.id})}"
+                      th:object="${product}">
+                    <button class="order-button text-center text-decoration-none"
+                            type="submit" style="border-color: white"
+                    >Remove product
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
-
-<table id="dtBasicExample" class="products-table table-striped table-bordered table-sm">
-    <thead>
-    <tr>
-        <th class="th-sm">Name
-
-        </th>
-        <th class="th-sm">Price
-
-        </th>
-        <th class="th-sm" th:if="${#strings.equals(category.name(),'drink')}">Quantity
-        </th>
-        <th class="th-sm" th:if="${!#strings.equals(category.name(),'drink')}">Description
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="row mb-2 mt-2" th:each="product : ${products}" th:if="${!#strings.equals(category,'drink')}">
-        <td th:text="*{product.name}" style="font-weight: bold">Tiger Nixon</td>
-        <td th:text="|*{product.price} &euro;|">System Architect</td>
-        <td th:text="*{product.description}">Edinburgh</td>
-        <td sec:authorize="isAuthenticated() && !hasAnyAuthority('ROLE_ADMIN','ROLE_WORKER')"
-            style="margin-bottom:10px">
-            <form th:method="PATCH"
-                  th:action="@{/cart/add/{id}(id=${product.id})}"
-                  th:object="${product}">
-                <button class="order-button text-center text-decoration-none" type="submit" style="border-color: white"
-                >Add to cart
-                </button>
-            </form>
-        </td>
-        <td sec:authorize="hasAuthority('ROLE_ADMIN')" style="margin-bottom:10px">
-            <a class="order-button text-center text-decoration-none"
-               th:href="@{/products/edit/{id}(id=${product.id})}"
-            >Edit product</a>
-        </td>
-        <td sec:authorize="hasAuthority('ROLE_ADMIN')" style="margin-bottom:10px">
-            <form th:method="delete"
-                  th:action="@{/products/delete/{id}(id=${product.id})}"
-                  th:object="${product}">
-                <button class="order-button text-center text-decoration-none"
-                        type="submit" style="border-color: white"
-                >Remove product
-                </button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
 
 <th:block th:insert="~{fragments/footer}"></th:block>
 

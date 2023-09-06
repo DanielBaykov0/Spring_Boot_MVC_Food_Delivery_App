@@ -1,5 +1,5 @@
 .products-table {
-    background-color: #49857b;
+    background-color: #FFDB58; /* Mustard */
     border-radius: 25px;
     margin-bottom: 100px;
     width: 70%;
@@ -19,14 +19,13 @@ tr {
     text-align: center;
 }
 
-
 .table-head {
     margin-bottom: 10px;
 }
 
 .order-button {
     background-color: white;
-    color: #2c504a;
+    color: black;
     border-radius: 10px;
     border: none;
     float: right;
@@ -35,7 +34,7 @@ tr {
 }
 
 .order-button:hover {
-    background-color: #2c504a;
+    background-color: #B8860B; /* Dark Goldenrod */
     color: white;
     transition: all 2000ms ease
 }

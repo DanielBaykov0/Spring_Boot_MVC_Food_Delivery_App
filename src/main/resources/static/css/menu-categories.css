@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(238, 240, 132);
+    background-color: #FFDB58; /* Mustard */
 }
 
 .container{
@@ -7,7 +7,7 @@ body {
 }
 
 .navigate-to{
-    color:#424242;
+    color: #424242;
     border-radius: 8px;
     border-color: white;
     background-color: white;
@@ -24,23 +24,19 @@ body {
 }
 
 .navigate-to:hover{
-    background-color:darkred;
-    color:white;
+    background-color: #B8860B; /* Dark Goldenrod */
+    color: white;
     transition: all 2000ms ease
 }
 
 .card{
-    background-color:#eef084;
-    width:70%;
+    background-color: #FFDB58; /* Mustard */
+    width: 70%;
     margin-left: 50px;
     margin-right: 50px;
     margin-bottom: 35px;
     height: 18rem;
     padding-bottom: 10px;
-}
-
-.card-dessert{
-    background-color:#eef084;
 }
 
 .row{
@@ -52,4 +48,5 @@ body {
     color: black;
     font-weight: 500;
     margin-left: 8px;
+    text-align: center;
 }
