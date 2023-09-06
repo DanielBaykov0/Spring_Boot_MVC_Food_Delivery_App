@@ -5,7 +5,7 @@
     <th:block th:insert="~{/fragments/header}"></th:block>
 </head>
 
-<body>
+<body style="font-family: Georgia, serif;">
 
 <div>
     <th:block th:insert="~{/fragments/navigation}"></th:block>
@@ -14,39 +14,46 @@
 <form class="contact-form mb-4"
       th:action="@{/contact}"
       th:method="POST"
-      th:object="${contactDto}">
+      th:object="${contactDto}"
+      style="width: 70%">
 
 
-    <h2 class="wrapper h1-responsive text-center text-white">Contact us</h2>
+    <h1 class="wrapper h1-responsive text-center text-black">Contact us</h1>
 
-    <div class="col-md-9 mb-md-0 mb-5">
-        <div class="form-info">
+    <p class="message text-center w-responsive text-black mt-1">
+        Do you have any questions? Please do not hesitate to contact us!</p>
 
-            <div class="col-md-6">
-                <div class="md-form mb-0">
-                    <label for="name" class="">Your name</label>
-                    <input type="text"
-                           th:field="*{name}"
-                           th:errorclass="is-invalid"
-                           id="name"
-                           name="name"
-                           class="form-control">
-                    <div class="invalid-feedback errors-contact alert-danger"
-                         th:each="err :${#fields.errors('name')}"
-                         th:text="${err}"/>
+    <div class="row">
+
+        <div class="col-md-9 mb-md-0 mb-5">
+            <div class="form-info">
+
+                <div class="col-md-6">
+                    <div class="md-form mb-0">
+                        <label for="name" class="">Your name</label>
+                        <input type="text"
+                               th:field="*{name}"
+                               th:errorclass="is-invalid"
+                               id="name"
+                               name="name"
+                               class="form-control">
+                        <div class="invalid-feedback errors-contact alert-danger"
+                             th:each="err :${#fields.errors('name')}"
+                             th:text="${err}"/>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="md-form mb-0">
-                    <label for="email" class="">Your email</label>
-                    <input type="email"
-                           th:field="*{email}"
-                           th:errorclass="is-invalid"
-                           id="email" name="email" class="form-control">
-                    <div class="invalid-feedback errors-contact alert-danger"
-                         th:each="err :${#fields.errors('email')}"
-                         th:text="${err}"/>
+                <div class="col-md-6">
+                    <div class="md-form mb-0">
+                        <label for="email" class="">Your email</label>
+                        <input type="email"
+                               th:field="*{email}"
+                               th:errorclass="is-invalid"
+                               id="email" name="email" class="form-control">
+                        <div class="invalid-feedback errors-contact alert-danger"
+                             th:each="err :${#fields.errors('email')}"
+                             th:text="${err}"/>
+                    </div>
                 </div>
             </div>
 
@@ -65,45 +72,45 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="form-info">
 
-                <div class="md-form">
-                    <label for="message">Your message</label>
-                    <textarea type="text"
-                              th:field="*{description}"
-                              th:errorclass="is-invalid"
-                              id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
-                    <div class="invalid-feedback errors-contact alert-danger"
-                         th:each="err :${#fields.errors('description')}"
-                         th:text="${err}"/>
+                <div class="col-md-12">
+                    <div class="md-form">
+                        <label for="message">Your message</label>
+                        <textarea type="text"
+                                  th:field="*{description}"
+                                  th:errorclass="is-invalid"
+                                  id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                        <div class="invalid-feedback errors-contact alert-danger"
+                             th:each="err :${#fields.errors('description')}"
+                             th:text="${err}"/>
+                    </div>
                 </div>
+            </div>
 
+            <div class="text-center text-md-left">
+                <button class="send-button justify-content-center">Send</button>
             </div>
         </div>
 
-        <div class="text-center text-md-left">
-            <button class="send-button justify-content-center">Send</button>
+        <div class="col-md-3 text-center mt-1 mb-2">
+
+            <ul class="list-unstyled text-black">
+
+                <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                    <p>Sofia, 1510, Bulgaria</p>
+                </li>
+
+                <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                    <p>+359887675747</p>
+                </li>
+
+                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                    <p>topPizza@abv.bg</p></li>
+
+            </ul>
         </div>
-        <div class="status"></div>
     </div>
-
-    <div class="col-md-3 text-center mt-1 mb-2">
-        <ul class="list-unstyled text-white">
-            <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                <p>Sofia, 1510, Bulgaria</p>
-            </li>
-
-            <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                <p>+359886867666</p>
-            </li>
-
-            <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                <p>topPizza@abv.bg</p>
-            </li>
-        </ul>
-    </div>
-    </div>
-
 </form>
 
 <th:block th:insert="~{fragments/footer}"></th:block>

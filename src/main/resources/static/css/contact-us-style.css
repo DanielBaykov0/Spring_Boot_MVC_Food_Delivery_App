@@ -1,17 +1,17 @@
 body {
-    background-color: rgb(234, 153, 153);
+    background-color: #FFDB58; /* Mustard */
 }
 
 .wrapper {
     margin-top: 15px;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .contact-form {
     margin-top: 130px;
     border-radius: 25px;
-    border-color: #d54b43;
-    background-color:#d54b43;
+    border-color: #B8860B; /* Dark Goldenrod */
+    background-color: #FFDB58; /* Mustard */
     width: 60%;
     height: 100%;
     margin-left: auto;
@@ -21,7 +21,7 @@ body {
 
 .form-info {
     margin-left: 50px;
-    color: white;
+    color: black;
 }
 
 .message {
@@ -31,10 +31,10 @@ body {
 }
 
 .errors-contact{
-    width:100%;
+    width: 100%;
     border-radius: 4px;
     text-align: center;
-    font-weight:600;
+    font-weight: 600;
     margin-top: 5px;
     margin-left: 0;
     margin-right: 10px;
@@ -44,12 +44,18 @@ body {
 .send-button {
     background-color: white;
     border-radius: 25px;
-    border-color: white;
+    border-color: #FFDB58; /* Mustard */
     color: black;
     font-weight: 500;
-    width: 30%;
+    width: 55%;
     height: 40%;
     margin-top: 25px;
     margin-bottom: 25px;
-    margin-left: 300px;
+    margin-left: 250px;
+}
+
+.send-button:hover{
+    background-color: #B8860B; /* Dark Goldenrod */
+    color: white;
+    transition: all 2000ms ease
 }
