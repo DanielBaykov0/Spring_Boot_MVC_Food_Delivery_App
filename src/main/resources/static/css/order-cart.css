@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(238, 240, 132);
+    background-color: white;
 }
 
 .remove-button {
@@ -7,7 +7,7 @@ body {
     border-style: none;
     text-decoration: none;
     background-color: white;
-    color: #424242;
+    color: black;
     display: flex;
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 .remove-button:hover {
-    background-color: darkred;
+    background-color: #B8860B; /* Dark Goldenrod */
     color: white;
     transition: all 2000ms ease;
 }
@@ -28,6 +28,10 @@ body {
 .my-custom-scrollbar {
     position: relative;
     overflow: auto;
+}
+
+.custom-table {
+    background-color: #FFDB58; /* Mustard */
 }
 
 .table-wrapper-scroll-y {
@@ -41,17 +45,23 @@ body {
 
 .finalize-order {
     margin-right: 200px;
+    margin-left: 140px;
     border-radius: 25px;
     border-style: none;
-    background-color: white;
-    color: #424242;
+    background-color: #FFDB58; /* Mustard */
+    color: black;
     text-decoration: none;
     display: flex;
     width: 50%;
 }
 
 .finalize-order:hover {
-    background-color: darkred;
+    background-color: #B8860B; /* Dark Goldenrod */
     color: white;
     transition: all 2000ms ease;
+}
+
+.button-detail-all:hover{
+    background-color: #B8860B; /* Dark Goldenrod */
+    color: white;
 }

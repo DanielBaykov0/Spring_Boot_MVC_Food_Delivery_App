@@ -8,7 +8,7 @@ function onLoadTest() {
     let testCtrl = document.getElementById('orderTableBody');
     testCtrl.innerHTML = '';
 
-    fetch(`http://localhost:8081/api/order/details/${id}`)
+    fetch(`http://localhost:8080/api/order/details/${id}`)
         .then(response => response.json())
         .then(order => {
 
@@ -28,7 +28,7 @@ function onLoadTest() {
             priceCol.textContent = order.price;
             statusCol.textContent = order.status;
             addressCol.textContent = order.address;
-            contactNumberCol.textContent = order.contactNumber;
+            contactNumberCol.textContent = order.contactPhoneNumber;
             commentCol.textContent = order.comment;
 
             row.appendChild(idCol);
