@@ -2,19 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>All users</title>
     <th:block th:insert="~{/fragments/header}"></th:block>
+    <title>Error</title>
 </head>
-<body>
 
-<div>
-    <th:block th:insert="~{/fragments/navigation}"></th:block>
-</div>
+<body style="font-family: Georgia, serif; background-color: white">
 
-<div class="container text-center" style="background-color: #d54b43; border-radius: 50px; margin-top: 250px;">
+<div class="container text-center"
+     style="background-color: #FFDB58;
+            border-radius: 50px;
+            margin-top: 225px;
+            color: black;
+            width: 70%">
 
-    <h1>Error! Probably you have tried to do something that you don't have authorities to.
-        We will figure this and message you. Click <a th:href="@{/}">here</a> to return to the home page.</h1>
+    <h1 style="padding: 15px;">Error! You don't have permissions for this action.
+        Click <a th:href="@{/}" style="color: #B8860B">here</a> to return to the
+        home page.</h1>
 
 </div>
 
@@ -22,6 +25,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+</script>
 </body>
 </html>
