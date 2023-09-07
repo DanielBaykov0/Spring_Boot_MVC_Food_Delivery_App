@@ -1,35 +1,21 @@
-body {
-    /* background-image: url('istockphoto-1358132613-170667a.jpg'); */
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size:cover;
-    background-color: rgb(234, 153, 153);
-    margin-top:70px;
-}
-
 .delivery-image{
     width: 95%;
     margin-bottom: 20px;
-    margin-top:50px;
-}
-
-.placeholder {
-    color: pink;
+    margin-top: 50px;
 }
 
 .main-form{
-    background-color: #d54b43;
+    background-color: #FFDB58; /* Mustard */
     border-radius: 25px;
     margin-top: 50px;
     width: 80%;
 }
 
 .errors-register{
-    width:90%;
+    width: 90%;
     border-radius: 4px;
     text-align: center;
-    font-weight:600;
+    font-weight: 600;
     margin-top: 5px;
     margin-left: 10px;
     margin-right: 10px;
@@ -38,11 +24,11 @@ body {
 
 .btn{
     background-color: white;
-    color:#424242;
+    color: #424242;
 }
 
 .btn:hover{
-    background-color:darkred;
+    background-color: #B8860B; /* Dark Goldenrod */
     color:white;
     transition: all 2000ms ease;
 }

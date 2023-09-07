@@ -6,14 +6,14 @@
     <th:block th:insert="~{/fragments/header}"></th:block>
 </head>
 
-<body>
+<body style="font-family: Georgia, serif;">
 
 <div>
     <th:block th:insert="~{/fragments/navigation}"></th:block>
 </div>
 
-<div class="col-5 float-start">
-    <img alt="pizza delivery image" src="@{/resources/images/pizzaDelivery.jpg}" class="delivery-image">
+<div class="col-5 float-start mx-lg-5">
+    <img alt="pizza delivery image" src="/images/pizzaDelivery.jpg" class="delivery-image">
 </div>
 
 <div class="col-5 float-end">
@@ -23,12 +23,12 @@
           th:object="${registerDto}"
           class="main-form mx-auto col-md-12 mt-5 d-flex flex-column my-lg-5">
 
-        <h2 class="text-center text-white mt-3">Register User</h2>
+        <h2 class="text-center text-black mt-3">Register User</h2>
 
         <div class="row mt-1 mb-0 m-2">
 
             <div class="col-md-6">
-                <label for="firstName" class="form-label text-white">First name</label>
+                <label for="firstName" class="form-label text-black">First name</label>
                 <input type="text"
                        th:field="*{firstName}"
                        th:errorclass="is-invalid"
@@ -41,7 +41,7 @@
             </div>
 
             <div class="col-md-6">
-                <label for="lastName" class="form-label text-white">Last name</label>
+                <label for="lastName" class="form-label text-black">Last name</label>
                 <input type="text"
                        th:field="*{lastName}"
                        th:errorclass="is-invalid"
@@ -53,22 +53,21 @@
             </div>
         </div>
 
-
         <div class="row mt-1 mb-0  m-2">
             <div class="col-md-6">
-                <label for="username" class="form-label text-white">Username</label>
+                <label for="username" class="form-label text-black">Username</label>
                 <input type="text"
                        th:field="*{username}"
                        th:errorclass="is-invalid"
                        class="form-control"
                        id="username"
-                       placeholder="Ex: example7@">
+                       placeholder="Ex: username">
                 <div class="invalid-feedback errors-register alert-danger" th:each="err :${#fields.errors('username')}"
                      th:text="${err}"/>
             </div>
 
             <div class="col-md-6">
-                <label for="email" class="form-label text-white">Email</label>
+                <label for="email" class="form-label text-black">Email</label>
                 <input type="email"
                        th:field="*{email}"
                        th:errorclass="is-invalid"
@@ -82,7 +81,7 @@
 
         <div class="row mt-1  mb-0  m-2">
             <div class="col-md-6">
-                <label for="password" class="form-label text-white">Password</label>
+                <label for="password" class="form-label text-black">Password</label>
                 <input type="password"
                        th:field="*{password}"
                        th:errorclass="is-invalid"
@@ -94,40 +93,37 @@
             </div>
 
             <div class="col-md-6">
-                <label for="confirmPassword" class="form-label text-white"> Confirm Password</label>
+                <label for="confirmPassword" class="form-label text-black"> Confirm Password</label>
                 <input type="password"
                        th:field="*{confirmPassword}"
                        th:errorclass="is-invalid"
                        class="form-control" id="confirmPassword" placeholder="Confirm password">
-                <div class="invalid-feedback errors-register alert-danger"
-                     th:each="err :${#fields.errors('confirmPassword')}"
+                <div class="invalid-feedback errors-register alert-danger" th:each="err :${#fields.errors('confirmPassword')}"
                      th:text="${err}"/>
             </div>
         </div>
 
-
         <div class="row mt-1  mb-0 m-2">
             <div class="col-md-9">
-                <label for="phoneNumber" class="form-label text-white">Phone number</label>
+                <label for="phoneNumber" class="form-label text-black">Phone number</label>
                 <input type="text"
                        th:field="*{phoneNumber}"
                        th:errorclass="is-invalid"
                        class="form-control"
                        id="phoneNumber"
-                       placeholder="Phone number">
-                <div class="invalid-feedback errors-register alert-danger"
-                     th:each="err :${#fields.errors('phoneNumber')}"
+                       placeholder="Ex: 0878685848">
+                <div class="invalid-feedback errors-register alert-danger" th:each="err :${#fields.errors('phoneNumber')}"
                      th:text="${err}"/>
             </div>
 
             <div class="col-md-3">
-                <label for="age" class="form-label text-white">Age</label>
+                <label for="age" class="form-label text-black">Age</label>
                 <input type="number"
                        th:field="*{age}"
                        th:errorclass="is-invalid"
                        class="form-control"
                        id="age"
-                       min="5"
+                       min="10"
                        max="100"
                        step="1"
                        placeholder="Age">
@@ -136,7 +132,7 @@
             </div>
 
             <div class="col text-center">
-                <label for="gender" class="form-label float-start text-white">Gender</label>
+                <label for="gender" class="form-label float-start text-black">Gender</label>
                 <select id="gender"
                         th:field="*{gender}"
                         th:errorclass="is-invalid"
@@ -144,8 +140,7 @@
                     <option value="">Select gender</option>
                     <option th:each="g:${T(baykov.daniel.fooddelivery.domain.constant.GenderEnum).values()}"
                             th:text="${g.name()}"
-                            th:value="${g}">Male
-                    </option>
+                            th:value="${g}">Male</option>
 
                 </select>
                 <small class="invalid-feedback errors-register alert-danger">Gender is required.</small>
