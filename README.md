@@ -8,7 +8,7 @@ To enhance user experience and security, the system includes user authentication
 ### Project photos     
 https://github.com/DanielBaykov0/Spring_Boot_MVC_Food_Delivery_App/blob/52a9e639409554837048a0fcaadcd2112899aeec/photos
 ### Test coverage photo 
-https://github.com/DanielBaykov0/Spring_Boot_MVC_Food_Delivery_App/blob/52a9e639409554837048a0fcaadcd2112899aeec/photos/tests
+https://github.com/DanielBaykov0/Spring_Boot_MVC_Food_Delivery_App/blob/52a9e639409554837048a0fcaadcd2112899aeec/photos/tests/test_coverage_photo.png
 
 ## Setup backend environment
 **0. Open cmd with "Run as administrator"**
